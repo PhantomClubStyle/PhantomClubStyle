@@ -580,19 +580,19 @@
             const contentBox = document.getElementById('modal-body-content');
 
             contentBox.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2">
-                    <div class="relative h-72 md:h-full bg-black min-h-[300px] overflow-hidden rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none">
-                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                            <source src="${p.videoUrl}" type="video/mp4">
-                        </video>
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${p.badgeColor}">
-                                ${p.badge}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-6 md:p-8 flex flex-col justify-between">
-                        <div>
+    <div class="grid grid-cols-1 md:grid-cols-2 overflow-hidden rounded-3xl">
+        <div class="relative h-72 md:h-full bg-black min-h-[300px] w-full">
+            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+                <source src="${p.videoUrl}" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-phantom-800 via-transparent to-transparent opacity-40"></div>
+            <div class="absolute top-4 left-4 z-10">
+                <span class="px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${p.badgeColor}">
+                    ${p.badge}
+                </span>
+            </div>
+        </div>
+        
                             <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 block mb-1">Phantom Club Collection</span>
                             <h2 class="text-2xl font-black text-white mb-3">${p.name}</h2>
                             <p class="text-sm text-phantom-300 mb-6 leading-relaxed">${p.description}</p>
