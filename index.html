@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es" class="dark">
 <head>
@@ -45,7 +44,7 @@
             display: none !important;
         }
     </style>
-</head>
+    </head>
 <body class="bg-darkBg min-h-screen flex flex-col antialiased selection:bg-neutral-800 selection:text-white">
 
     <!-- Header / Navbar -->
@@ -81,7 +80,6 @@
             </div>
         </div>
     </header>
-
     <!-- Main Content -->
     <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6">
         
@@ -133,7 +131,6 @@
                     <span id="modalOldPrice" class="text-sm text-neutral-500 line-through"></span>
                 </div>
                 <p id="modalDescription" class="text-xs md:text-sm text-neutral-300 leading-relaxed mb-6"></p>
-
                 <!-- WhatsApp Order CTA inside modal -->
                 <a id="modalWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-whatsapp hover:bg-whatsappHover text-black font-bold py-3.5 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm shadow-lg shadow-whatsapp/20">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -293,7 +290,6 @@
                     btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all";
                 }
             });
-
             // Update Category Header Info
             const catInfo = catalogData[categoryKey];
             document.getElementById('catTitle').textContent = catInfo.title;
@@ -360,4 +356,66 @@
                             <div class="flex items-center space-x-2 mb-3">
                                 <span class="text-emerald-400 font-bold text-sm md:text-base">${product.price}</span>
                                 ${product.oldPrice ? `<span class="text-neutral-500 text-xs line-through">${product.oldPrice}</span>` : ''}
-                    
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation(); orderOnWhatsApp('${product.title}')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-semibold py-2.5 px-4 rounded-xl text-xs transition-all flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>PEDIR AHORA</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Open Product Modal
+        function openModal(product) {
+            const modal = document.getElementById('productModal');
+            const video = document.getElementById('modalVideo');
+            const title = document.getElementById('modalTitle');
+            const price = document.getElementById('modalPrice');
+            const oldPrice = document.getElementById('modalOldPrice');
+            const badgeContainer = document.getElementById('modalBadgeContainer');
+            const desc = document.getElementById('modalDescription');
+            const whatsappBtn = document.getElementById('modalWhatsappBtn');
+
+            video.src = product.videoUrl;
+            title.textContent = product.title;
+            price.textContent = product.price;
+            oldPrice.textContent = product.oldPrice || '';
+            desc.textContent = product.description;
+
+            badgeContainer.innerHTML = `<span class="text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${product.badgeClass} shadow-md">${product.badge}</span>`;
+
+            const whatsappMessage = encodeURIComponent(`¡Hola! Me interesa este producto: *${product.title}* (${product.price}). ¿Está disponible?`);
+            whatsappBtn.href = `https://wa.me/584120000000?text=${whatsappMessage}`;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            const video = document.getElementById('modalVideo');
+            modal.classList.add('hidden');
+            video.pause();
+            document.body.style.overflow = 'auto';
+        }
+
+        // Direct WhatsApp Order helper
+        function orderOnWhatsApp(productTitle) {
+            const message = encodeURIComponent(`¡Hola! Quisiera pedir este producto: *${productTitle}*. ¿Cómo hacemos con el pago y envío?`);
+            window.open(`https://wa.me/584120000000?text=${message}`, '_blank');
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
