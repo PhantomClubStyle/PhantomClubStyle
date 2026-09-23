@@ -1,0 +1,363 @@
+```html
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHANTOM CLUB - Catálogo Exclusivo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0b0b',
+                        cardBg: '#141414',
+                        cardHover: '#1f1f1f',
+                        whatsapp: '#25D366',
+                        whatsappHover: '#20ba59'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0b0b;
+            color: #f3f4f6;
+        }
+        /* Custom scrollbar for categories slider */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-darkBg min-h-screen flex flex-col antialiased selection:bg-neutral-800 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/80 border-b border-neutral-800/60">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-crown text-white text-sm"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold tracking-wider text-base md:text-lg text-white">PHANTOM CLUB</h1>
+                    <p class="text-[10px] text-neutral-400 uppercase tracking-widest">Store Oficial</p>
+                </div>
+            </div>
+            <a href="https://wa.me/584120000000?text=Hola,%20vengo%20de%20la%20web%20y%20quiero%20más%20información" target="_blank" rel="noopener noreferrer" class="bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-medium px-4 py-2 rounded-full transition-all flex items-center space-x-2">
+                <i class="fa-brands fa-whatsapp text-whatsapp text-sm"></i>
+                <span class="hidden sm:inline">Contacto</span>
+            </a>
+        </div>
+
+        <!-- Category Selector (Main Menu) -->
+        <div class="bg-neutral-950/80 border-t border-neutral-900 py-2.5 px-4">
+            <div class="max-w-4xl mx-auto flex items-center space-x-2 overflow-x-auto no-scrollbar" id="categoryContainer">
+                <button onclick="switchCategory('gorras')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all bg-white text-black shadow" data-category="gorras">
+                    <i class="fa-solid fa-hat-cowboy mr-1.5"></i> Gorras
+                </button>
+                <button onclick="switchCategory('crocs')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800" data-category="crocs">
+                    <i class="fa-solid fa-shoe-prints mr-1.5"></i> Crocs & Calzado
+                </button>
+                <button onclick="switchCategory('proximamente')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800" data-category="proximamente">
+                    <i class="fa-solid fa-clock mr-1.5"></i> Próximamente
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- Category Banner / Title Info -->
+        <div class="mb-6" id="categoryHeader">
+            <h2 id="catTitle" class="text-2xl font-bold tracking-tight text-white mb-1">CATÁLOGO DE GORRAS</h2>
+            <p id="catDesc" class="text-xs md:text-sm text-neutral-400">Explora los modelos en video y pide directamente al WhatsApp.</p>
+        </div>
+
+        <!-- Subfilter Tags Bar -->
+        <div class="flex items-center space-x-2 mb-6 overflow-x-auto no-scrollbar">
+            <button onclick="filterProducts('todos')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all" data-filter="todos">Todas</button>
+            <button onclick="filterProducts('exclusivos')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all" data-filter="exclusivos">Exclusivos</button>
+            <button onclick="filterProducts('ofertas')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all" data-filter="ofertas">Ofertas</button>
+            <button onclick="filterProducts('agotado')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all" data-filter="agotado">Agotados</button>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            <!-- Dynamic Cards injected via JS -->
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fa-solid fa-box-open text-4xl text-neutral-600 mb-3"></i>
+            <p class="text-neutral-400 text-sm">No hay productos disponibles en este filtro por los momentos.</p>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-cardBg border border-neutral-800 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-3 right-3 z-10 w-9 h-9 bg-black/60 hover:bg-black/80 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <!-- Modal Media container -->
+            <div class="relative w-full h-64 sm:h-72 bg-black flex items-center justify-center">
+                <video id="modalVideo" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
+                <div id="modalBadgeContainer" class="absolute top-3 left-3"></div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-5 flex-grow overflow-y-auto">
+                <h3 id="modalTitle" class="text-lg font-bold text-white mb-2"></h3>
+                <div class="flex items-center space-x-3 mb-4">
+                    <span id="modalPrice" class="text-xl font-bold text-emerald-400"></span>
+                    <span id="modalOldPrice" class="text-sm text-neutral-500 line-through"></span>
+                </div>
+                <p id="modalDescription" class="text-xs md:text-sm text-neutral-300 leading-relaxed mb-6"></p>
+
+                <!-- WhatsApp Order CTA inside modal -->
+                <a id="modalWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-whatsapp hover:bg-whatsappHover text-black font-bold py-3.5 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm shadow-lg shadow-whatsapp/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>PEDIR AHORA POR WHATSAPP</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-900 bg-black py-6 mt-12 text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-xs text-neutral-500 mb-1">© 2026 PHANTOM CLUB. Todos los derechos reservados.</p>
+            <p class="text-[10px] text-neutral-600">Catálogo optimizado para GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Database of products categorized
+        const catalogData = {
+            gorras: {
+                title: "CATÁLOGO DE GORRAS",
+                desc: "Explora los modelos en video y pide directamente al WhatsApp.",
+                products: [
+                    {
+                        id: "g1",
+                        title: "DandyHats X Fuerza Regida",
+                        price: "$38.00 BCV",
+                        oldPrice: "$46.00 BCV",
+                        badge: "AGOTADO",
+                        badgeClass: "bg-red-600 text-white",
+                        filterTag: "agotado",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-wearing-a-cap-and-sunglasses-41887-large.mp4",
+                        description: "Edición limitada colaboración especial con Fuerza Regida. Acabados bordados en alta definición 3D, material premium resistente y ajuste trasero graduable."
+                    },
+                    {
+                        id: "g2",
+                        title: "BarbasHats Galaxy",
+                        price: "$47.00 BCV",
+                        oldPrice: "",
+                        badge: "EXCLUSIVO",
+                        badgeClass: "bg-amber-500 text-black font-semibold",
+                        filterTag: "exclusivos",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-with-cap-looking-at-the-camera-41886-large.mp4",
+                        description: "Diseño estelar con detalles brillantes en pedrería fina de alta fijación. Pieza de colección exclusiva para verdaderos conocedores."
+                    },
+                    {
+                        id: "g3",
+                        title: "SadBoys Classic Trucker",
+                        price: "$32.00 BCV",
+                        oldPrice: "$40.00 BCV",
+                        badge: "OFERTA",
+                        badgeClass: "bg-emerald-600 text-white",
+                        filterTag: "ofertas",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-wearing-a-cap-in-an-urban-setting-41885-large.mp4",
+                        description: "Estilo urbano underground con malla transpirable trasera y parche frontal bordado de alta calidad. Cómoda para el día a día."
+                    },
+                    {
+                        id: "g4",
+                        title: "Phantom Shadow Edition",
+                        price: "$42.00 BCV",
+                        oldPrice: "",
+                        badge: "EXCLUSIVO",
+                        badgeClass: "bg-amber-500 text-black font-semibold",
+                        filterTag: "exclusivos",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-wearing-a-cap-and-sunglasses-41888-large.mp4",
+                        description: "Diseño completamente negro mate con acentos reflectivos nocturnos. Edición limitada de la casa Phantom."
+                    }
+                ]
+            },
+            crocs: {
+                title: "CATÁLOGO DE CROCS & CALZADO",
+                desc: "Comodidad y estilo urbano con los mejores diseños y charms personalizados.",
+                products: [
+                    {
+                        id: "c1",
+                        title: "Crocs Classic Platform Black",
+                        price: "$55.00 BCV",
+                        oldPrice: "$65.00 BCV",
+                        badge: "OFERTA",
+                        badgeClass: "bg-emerald-600 text-white",
+                        filterTag: "ofertas",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-feet-of-a-person-walking-with-sneakers-42861-large.mp4",
+                        description: "Plataforma alta con diseño ultraligero, resistente al agua y ventilación optimizada. Incluye set de Jibbitz de regalo."
+                    },
+                    {
+                        id: "c2",
+                        title: "Crocs Echo Clog Metallic",
+                        price: "$68.00 BCV",
+                        oldPrice: "",
+                        badge: "EXCLUSIVO",
+                        badgeClass: "bg-amber-500 text-black font-semibold",
+                        filterTag: "exclusivos",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-person-walking-with-stylish-shoes-42862-large.mp4",
+                        description: "Línea futurista con soporte acolchado de doble densidad y correas ajustables. Máxima tendencia urbana."
+                    }
+                ]
+            },
+            proximamente: {
+                title: "PRÓXIMAMENTE EN PHANTOM CLUB",
+                desc: "Nuevas líneas de productos que se añadirán muy pronto al catálogo.",
+                products: [
+                    {
+                        id: "p1",
+                        title: "Línea de Hoodies Oversize",
+                        price: "Próximamente",
+                        oldPrice: "",
+                        badge: "PRONTO",
+                        badgeClass: "bg-purple-600 text-white",
+                        filterTag: "todos",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-posing-with-a-hoodie-in-an-urban-setting-41884-large.mp4",
+                        description: "Hoodies de algodón peinado de alto gramaje con cortes oversize y estampados en serigrafía 3D de alta durabilidad."
+                    },
+                    {
+                        id: "p2",
+                        title: "Gafas de Sol Edición Limitada",
+                        price: "Próximamente",
+                        oldPrice: "",
+                        badge: "PRONTO",
+                        badgeClass: "bg-purple-600 text-white",
+                        filterTag: "todos",
+                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-with-sunglasses-outdoors-41883-large.mp4",
+                        description: "Gafas con protección UV400, monturas de acetato reforzado y diseños vanguardistas."
+                    }
+                ]
+            }
+        };
+
+        let currentCategory = 'gorras';
+        let currentFilter = 'todos';
+
+        // Initialize App on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+
+        // Switch Main Category
+        function switchCategory(categoryKey) {
+            currentCategory = categoryKey;
+            currentFilter = 'todos';
+
+            // Update category buttons active state
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if(btn.getAttribute('data-category') === categoryKey) {
+                    btn.className = "cat-btn px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all bg-white text-black shadow";
+                } else {
+                    btn.className = "cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800";
+                }
+            });
+
+            // Reset filter buttons active state to 'todos'
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.getAttribute('data-filter') === 'todos') {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all";
+                } else {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all";
+                }
+            });
+
+            // Update Category Header Info
+            const catInfo = catalogData[categoryKey];
+            document.getElementById('catTitle').textContent = catInfo.title;
+            document.getElementById('catDesc').textContent = catInfo.desc;
+
+            renderProducts();
+        }
+
+        // Filter products by tag
+        function filterProducts(filterTag) {
+            currentFilter = filterTag;
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.getAttribute('data-filter') === filterTag) {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all";
+                } else {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all";
+                }
+            });
+
+            renderProducts();
+        }
+
+        // Render products grid according to state
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const products = catalogData[currentCategory].products;
+
+            // Filter logic
+            const filtered = products.filter(item => {
+                if(currentFilter === 'todos') return true;
+                return item.filterTag === currentFilter;
+            });
+
+            grid.innerHTML = '';
+
+            if(filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-cardBg hover:bg-cardHover border border-neutral-800/80 rounded-2xl overflow-hidden shadow-lg transition-all flex flex-col cursor-pointer group";
+                card.onclick = () => openModal(product);
+
+                card.innerHTML = `
+                    <div class="relative w-full h-56 bg-black overflow-hidden">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <source src="${product.videoUrl}" type="video/mp4">
+                        </video>
+                        <div class="absolute top-3 left-3">
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${product.badgeClass} shadow-md">
+                                ${product.badge}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-bold text-white text-sm md:text-base mb-1 group-hover:text-emerald-400 transition-colors">${product.title}</h3>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="text-emerald-400 font-bold text-sm md:text-base">${product.price}</span>
+                                ${product.oldPrice ? `<span class="text-neutral-500 text-xs line-through">${product.oldPrice}</span>` : ''}
+                    
