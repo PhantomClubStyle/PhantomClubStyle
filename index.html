@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHANTOM CLUB - Catálogo Exclusivo</title>
+    <title>PHANTOM CLUB Store</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,401 +12,787 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0b0b0b',
-                        cardBg: '#141414',
-                        cardHover: '#1f1f1f',
-                        whatsapp: '#25D366',
-                        whatsappHover: '#20ba59'
+                        phantom: {
+                            900: '#06080f',
+                            800: '#0b0f19',
+                            700: '#111827',
+                            600: '#1f293d',
+                            500: '#334155',
+                            400: '#64748b',
+                            300: '#94a3b8',
+                            200: '#cbd5e1',
+                            100: '#f1f5f9',
+                            blue: '#3b82f6',
+                            accent: '#2563eb'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Inter Font & Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0b0b0b;
-            color: #f3f4f6;
+            background-color: #06080f;
+            color: #f1f5f9;
+            overflow-x: hidden;
         }
-        /* Custom scrollbar for categories slider */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        ::-webkit-scrollbar-track {
+            background: #06080f;
         }
-        video::-webkit-media-controls {
-            display: none !important;
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 3px;
         }
-        /* Page transition animation */
-        @keyframes fadeInSlide {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
         }
-        .animate-page-enter {
-            animation: fadeInSlide 0.35s ease-out forwards;
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        /* Button tap feedback */
-        .tap-effect:active {
-            transform: scale(0.95);
-            transition: transform 0.1s ease;
+        .glow-blue {
+            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
         }
     </style>
 </head>
-<body class="bg-darkBg min-h-screen flex flex-col antialiased selection:bg-neutral-800 selection:text-white">
+<body class="bg-phantom-800 text-phantom-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/80 border-b border-neutral-800/65">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <!-- Custom SVG Logo -->
-                <div class="w-11 h-11 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center shadow-lg overflow-hidden p-1.5 tap-effect">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="120" height="120" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" style="max-width: 120px; height: auto; display: block; margin: 0 auto;">
-  <g xmlns="http://www.w3.org/2000/svg" transform="translate(0.000000,600.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
-    <path d="M2958 4539 c-10 -5 -18 -16 -18 -24 0 -8 -16 -16 -41 -20 -57 -10 -193 -80 -238 -123 -23 -22 -44 -54 -51 -79 -10 -33 -20 -44 -44 -53 -46 -16 -160 -86 -220 -135 -57 -46 -87 -47 -79 -2 3 14 -2 29 -12 37 -21 18 -59 -2 -75 -41 -17 -39 -5 -52 41 -45 21 3 40 2 44 -3 3 -5 -16 -33 -42 -61 -91 -99 -161 -218 -202 -341 -12 -37 -31 -75 -41 -84 -11 -10 -25 -36 -31 -57 -8 -33 -7 -44 7 -65 12 -19 15 -39 11 -72 -7 -66 9 -222 33 -310 25 -92 95 -239 144 -303 21 -27 36 -58 36 -75 1 -37 41 -82 82 -90 18 -3 49 -20 68 -38 49 -43 115 -87 177 -119 29 -14 54 -26 56 -26 1 0 1 16 -1 35 -2 20 -10 35 -17 35 -14 0 -139 82 -188 122 -40 34 -47 102 -13 143 l25 30 36 -35 35 -34 0 40 c0 29 -6 47 -21 60 -31 27 -102 130 -132 189 -41 83 -69 192 -74 296 -14 243 106 494 300 635 23 16 28 26 25 52 l-3 33 -62 -45 c-127 -93 -253 -284 -290 -441 -9 -38 -18 -72 -19 -74 -2 -2 -16 2 -31 8 -18 7 -38 31 -55 62 l-27 51 30 83 c37 101 109 220 182 300 63 69 78 67 79 -11 1 -49 1 -49 10 -15 5 19 8 45 5 58 -3 19 1 25 27 32 29 9 30 9 5 10 -39 1 -41 11 -8 38 35 30 188 123 201 123 5 0 9 -48 8 -107 -1 -60 -1 -119 -1 -133 1 -56 -43 -251 -76 -335 -68 -174 -83 -223 -93 -316 -6 -52 -22 -136 -36 -188 -32 -117 -27 -141 50 -230 l55 -63 -2 -72 c-1 -62 3 -79 25 -117 28 -47 55 -76 64 -67 2 3 0 27 -6 54 -19 83 9 125 46 69 14 -21 15 -39 9 -103 -15 -157 -13 -186 20 -233 33 -47 101 -106 111 -96 4 3 -5 30 -20 58 -32 65 -35 128 -6 154 10 9 26 15 35 11 18 -6 35 -47 35 -82 0 -25 39 -94 53 -94 5 0 6 17 2 38 -3 21 -1 51 5 67 l12 30 17 -22 c10 -12 21 -45 24 -74 4 -33 17 -67 34 -92 59 -84 63 -93 63 -138 0 -30 -9 -62 -25 -94 -14 -26 -23 -50 -21 -53 8 -7 84 45 112 77 36 41 54 106 51 193 -2 64 1 81 19 105 12 16 33 29 47 31 22 3 29 -2 38 -25 10 -26 3 -54 -36 -145 -14 -34 18 -19 65 30 56 58 74 115 64 202 -7 64 8 125 32 134 29 11 37 -5 31 -70 -2 -35 -1 -64 3 -64 18 0 52 62 59 110 4 27 20 67 35 88 35 51 44 87 39 147 -4 49 -3 51 46 102 58 59 63 87 36 180 -8 28 -22 102 -30 164 -12 94 -22 129 -59 208 -24 53 -49 112 -55 131 -12 41 -31 187 -31 242 l0 37 66 -31 c116 -54 194 -47 194 17 0 30 -42 69 -156 143 -99 65 -104 73 -104 173 l0 48 56 -32 c30 -18 86 -55 122 -83 62 -47 67 -53 64 -86 -3 -30 2 -39 32 -61 31 -24 34 -31 34 -74 -1 -54 -19 -97 -48 -113 -19 -10 -18 -13 15 -73 57 -104 80 -203 79 -342 0 -188 -51 -337 -161 -470 -43 -52 -53 -71 -53 -102 l0 -37 31 30 c33 30 125 148 131 166 2 6 19 3 43 -8 57 -27 66 -71 28 -128 -44 -65 -172 -188 -246 -236 -47 -31 -73 -56 -87 -84 -11 -22 -18 -41 -17 -42 1 -2 36 17 77 42 139 84 262 199 329 307 13 21 31 37 41 37 27 0 61 63 65 118 1 26 14 85 29 131 14 46 29 113 33 150 6 63 8 68 50 104 42 35 40 53 -1 22 -24 -19 -50 -19 -43 -2 8 20 -11 186 -29 247 -30 107 -66 190 -120 276 -36 57 -52 93 -49 105 4 12 -5 35 -26 64 -27 37 -38 45 -65 45 -23 0 -47 12 -85 44 -61 49 -183 124 -216 132 -15 4 -24 18 -32 50 -7 25 -27 61 -47 84 -41 46 -170 114 -236 125 -25 5 -52 17 -65 31 -24 26 -74 32 -105 13z m77 -29 c4 -6 -9 -10 -32 -10 -28 0 -34 3 -23 10 20 13 47 13 55 0z m73 -77 c24 -14 53 -40 64 -59 11 -19 23 -33 25 -30 10 10 -9 46 -40 76 -31 31 -31 32 -7 25 14 -4 48 -19 75 -33 124 -62 151 -106 161 -261 l7 -104 -25 6 c-109 28 -338 28 -512 1 l-39 -6 5 124 c5 107 9 131 31 175 24 46 79 101 117 116 26 10 94 -4 138 -30z m-240 -20 c-57 -58 -70 -101 -76 -244 l-5 -127 -41 -5 c-23 -3 -61 -9 -86 -12 -42 -6 -44 -5 -26 9 11 9 34 16 52 16 18 0 36 5 40 12 5 8 -7 10 -44 5 -31 -4 -52 -2 -52 3 0 6 12 10 28 10 15 0 34 5 42 11 11 8 4 9 -29 6 l-43 -5 6 76 c10 106 21 135 68 178 36 32 167 103 193 104 5 0 -7 -17 -27 -37 z m-263 -203 c-3 -5 -11 -10 -16 -10 -6 0 -7 5 -4 10 3 6 11 10 16 10 6 0 7 -4 4 -10z m835 -4 c0 -2 -7 -7 -16 -10 -8 -3 -12 -2 -9 4 6 10 25 14 25 6 z m-1200 -101 c0 -16 -34 -38 -43 -28 -10 9 12 43 28 43 8 0 15 -7 15 -15z m97 -59 c0 -8 -6 -12 -15 -9 -11 5 -11 7 0 14 7 5 13 9 14 9 0 0 1 -6 1 -14z m978 -19 c56 -10 85 -23 145 -63 91 -62 155 -96 164 -86 4 3 4 -2 0 -11 -4 -12 -2 -17 6 -15 6 2 16 -7 20 -18 7 -17 4 -24 -16 -33 -16 -7 -24 -7 -24 0 0 6 -5 7 -10 4 -13 -8 -100 24 -100 37 0 6 -7 7 -16 4 -8 -3 -13 -2 -10 3 9 14 -31 20 -48 7 -19 -15 -35 -76 -26 -101 4 -10 5 -50 4 -88 -5 -91 8 -141 61 -252 37 -76 46 -107 55 -186 6 -52 20 -127 31 -168 l20 -75 -27 -25 -26 -26 6 38 c4 21 0 71 -8 115 -8 42 -19 112 -24 154 -6 44 -19 95 -32 120 -63 120 -97 271 -69 305 13 15 12 15 -9 2 -23 -13 -24 -18 -19 -103 3 -52 10 -92 17 -96 6 -4 11 -9 10 -11 -4 -12 28 -68 35 -62 4 5 5 2 1 -5 -4 -7 -1 -24 8 -37 15 -22 21 -52 31 -140 1 -16 6 -43 9 -60 5 -23 4 -26 -3 -10 -6 13 -10 15 -10 6 -1 -11 -5 -10 -15 4 -8 11 -12 23 -10 27 3 5 -2 8 -10 8 -9 0 -16 5 -16 10 0 6 -10 10 -22 10 -21 0 -21 0 4 -27 42 -45 51 -72 64 -193 19 -170 18 -205 -8 -230 -12 -11 -23 -18 -25 -16 -9 8 -43 305 -43 371 0 41 -4 77 -10 80 -5 3 -10 22 -10 41 0 19 -4 34 -9 34 -5 0 -13 9 -16 20 -4 11 -10 18 -15 15 -5 -3 -11 -1 -15 5 -3 5 0 10 7 10 7 1 -1 9 -18 18 -17 9 -52 37 -77 62 -37 36 -43 47 -34 59 10 12 9 13 -9 3 -19 -10 -21 -9 -18 16 3 26 2 26 -12 7 -15 -19 -16 -19 -12 5 2 18 -1 24 -12 23 -8 -1 -22 12 -30 30 -8 18 -19 32 -25 31 -13 0 -70 78 -66 91 1 6 -1 7 -5 3 -8 -9 -40 32 -36 45 1 5 -2 6 -8 2 -9 -5 -12 1 -9 21 0 4 -3 10 -8 13 -16 11 -73 89 -73 99 0 5 -7 12 -15 16 -8 3 -15 12 -15 19 0 18 -60 71 -85 75 -11 2 -42 4 -68 5 -32 2 -52 8 -57 18 -8 13 -2 16 39 15 27 -1 47 2 44 7 -2 4 6 5 19 4 12 -2 37 -1 54 3 27 6 31 5 27 -11 -4 -14 0 -19 13 -19 15 0 16 -2 5 -9 -11 -7 -9 -10 8 -16 11 -3 21 -11 21 -16 0 -6 5 -7 10 -4 9 6 14 -8 11 -27 0 -5 2 -7 7 -5 4 1 8 -2 10 -8 5 -15 31 -27 42 -20 6 3 10 2 10 -3 0 -14 84 -52 131 -58 28 -4 64 0 98 10 29 9 58 13 64 9 6 -4 7 -1 2 7 -6 10 -4 12 8 7 10 -4 17 -1 17 5 0 9 3 9 12 0 8 -8 15 -9 25 0 12 10 111 21 158 17 11 -1 32 -2 47 -2 15 0 25 -3 23 -7 -2 -4 7 -5 22 -2 17 3 24 1 19 -6 -3 -6 -1 -14 5 -18 8 -5 9 -3 4 6 -5 9 -2 10 14 5 38 -12 22 11 -21 31 -67 30 -225 26 -349 -9 -101 -28 -152 -33 -192 -18 -24 9 -141 95 -187 138 -50 46 3 22 73 -33 40 -31 90 -65 112 -75 39 -18 95 -26 81 -11 -8 7 -13 9 -45 11 -25 1 -189 126 -180 136 3 2 38 8 79 13 109 14 274 13 355 -1z m465 -23 c28 -33 30 -38 17 -52 -14 -13 -20 -13 -52 2 -25 12 -35 22 -31 33 3 8 6 23 6 34 0 30 25 23 60 -17z m-1015 -88 c13 -9 58 -67 99 -129 96 -144 211 -282 358 -427 l116 -115 1 -160 c1 -88 4 -208 7 -266 l7 -107 -49 -53 c-27 -30 -56 -59 -64 -66 -13 -10 -13 -12 2 -18 18 -7 73 37 61 49 -3 3 6 10 21 16 15 5 24 14 21 20 -3 5 -1 10 4 10 6 0 11 3 10 8 -1 4 2 17 6 30 8 24 34 29 65 12 13 -7 21 -7 26 2 5 7 3 8 -7 3 -12 -8 -12 -6 0 9 11 13 16 14 22 4 6 -9 11 -5 18 12 9 21 10 19 7 -18 -3 -24 -13 -55 -23 -69 -10 -14 -28 -43 -39 -65 -19 -35 -23 -38 -37 -24 -24 24 -47 19 -78 -15 -29 -33 -43 -69 -27 -69 6 0 6 -6 -1 -14 -9 -11 -10 -20 -1 -35 6 -12 8 -42 5 -68 -3 -27 -5 -56 -6 -66 0 -9 -4 -15 -9 -12 -4 3 -10 -1 -13 -7 -2 -7 -4 2 -5 20 0 22 3 30 11 26 7 -3 3 2 -7 10 -11 9 -16 16 -11 16 4 0 0 9 -10 20 -10 11 -21 17 -26 15 -4 -3 -10 -1 -13 4 -4 5 -12 8 -19 7 -23 -3 -37 -17 -30 -29 5 -8 2 -8 -9 0 -8 7 -17 11 -20 8 -3 -3 -11 1 -17 9 -9 11 -9 16 0 22 8 5 10 3 4 -7 -5 -10 -5 -11 3 -4 6 6 12 17 14 25 4 20 21 39 31 33 4 -2 7 3 7 11 0 9 5 16 11 16 5 0 8 4 4 9 -3 5 -1 12 5 16 6 4 8 11 4 16 -3 5 -1 16 5 23 6 7 9 27 7 45 -2 17 0 34 4 36 5 3 7 -6 5 -20 -1 -14 1 -25 6 -25 26 0 27 47 4 316 -14 153 -25 285 -25 293 0 8 -3 11 -7 7 -4 -4 -10 -154 -13 -334 -6 -353 -5 -345 -64 -412 -17 -19 -41 -48 -53 -65 l-22 -30 6 56 c6 64 -5 93 -66 163 -23 26 -42 60 -45 79 -3 17 -7 115 -10 217 -10 321 -19 510 -24 505 -11 -11 -31 -299 -32 -448 l0 -158 -30 35 c-17 18 -50 43 -73 54 -24 11 -49 27 -55 35 -15 18 -15 16 -7 322 5 174 4 247 -3 240 -10 -9 -22 -101 -52 -370 -17 -157 -26 -173 -70 -117 -21 26 -22 33 -15 165 4 80 3 137 -3 137 -5 0 -18 -46 -29 -102 l-20 -103 -41 -3 c-45 -3 -48 1 -31 45 6 15 19 88 30 162 16 111 27 153 68 250 52 125 61 156 86 301 9 52 22 98 28 103 17 11 84 1 112 -17z m-325 -19 c0 -2 -10 -12 -22 -23 l-23 -19 19 23 c18 21 26 27 26 19z m1393 -71 c100 -168 138 -291 140 -456 2 -109 1 -115 -18 -113 -24 2 -69 -62 -60 -85 4 -11 10 -6 23 19 23 45 59 48 54 4 -11 -98 -57 -232 -84 -241 -24 -7 -28 -3 -39 38 -8 31 -8 31 -5 -9 3 -30 0 -43 -11 -47 -22 -9 -38 -7 -56 7 -16 11 -16 16 7 74 39 101 56 193 56 310 0 145 -34 282 -93 382 l-20 34 27 24 c20 17 26 29 21 43 -7 22 3 80 13 80 4 0 24 -29 45 -64z m45 -21 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z m-1844 -290 c11 -19 17 -36 15 -38 -2 -2 -16 -11 -31 -20 -26 -16 -28 -16 -37 1 -12 22 6 92 23 92 6 0 20 -16 30 -35z m69 -84 c48 -18 55 -35 56 -127 2 -159 60 -332 152 -453 l40 -53 -27 -29 c-21 -22 -37 -29 -65 -29 -32 0 -42 6 -69 43 -48 65 -117 213 -140 302 -13 47 -24 129 -27 199 -6 117 -6 119 18 137 28 22 30 22 62 10z m87 0 c0 -6 -4 -13 -10 -16 -5 -3 -10 1 -10 9 0 9 5 16 10 16 6 0 10 -4 10 -9z m1822 -163 c-8 -8 -9 -4 -5 13 4 13 8 18 11 10 2 -7 -1 -18 -6 -23 z m-7 -28 c3 -6 -1 -7 -9 -4 -18 7 -21 14 -7 14 6 0 13 -4 16 -10z m-525 -135 c7 -9 8 -15 2 -15 -5 0 -12 7 -16 15 -3 8 -4 15 -2 15 2 0 9 -7 16 -15z m10 -39 c0 -3 -4 -8 -10 -11 -5 -3 -10 -1 -10 4 0 6 5 11 10 11 6 0 10 -2 10 -4z m-1054 -18 c5 -8 2 -9 -10 -5 -9 4 -15 3 -11 -2 6 -11 45 -11 45 0 0 6 58 5 63 -2 2 -2 11 -25 21 -51 10 -27 23 -48 29 -48 6 0 19 -8 30 -17 11 -10 17 -12 13 -5 -4 7 -1 12 8 12 8 0 19 7 24 17 9 14 11 14 21 -6 7 -12 9 -26 6 -31 -3 -6 -1 -10 5 -10 6 0 8 -4 5 -10 -3 -5 1 -10 10 -10 13 0 12 -4 -5 -22 -12 -13 -16 -24 -10 -26 14 -5 13 -22 -2 -18 -7 1 -10 1 -6 -1 8 -5 -12 -55 -25 -64 -5 -4 -4 -15 1 -26 9 -15 8 -20 -3 -20 -8 0 -12 4 -9 9 7 11 -42 32 -60 25 -9 -4 -24 -20 -35 -37 -23 -39 -29 -25 -25 63 2 39 -1 67 -6 67 -6 0 -10 6 -10 14 0 8 -7 16 -15 20 -8 3 -15 11 -15 18 0 11 2 11 8 0 6 -9 12 -5 20 13 17 37 15 62 -7 84 -11 11 -18 21 -15 23 2 2 -8 4 -21 4 -17 0 -26 -7 -30 -24 -9 -36 -21 -19 -29 43 -1 11 -1 23 1 28 6 11 31 8 39 -5z m1064 -8 c0 -5 -5 -10 -11 -10 -5 0 -7 5 -4 10 3 6 8 10 11 10 2 0 4 -4 4 -10z m-1024 -85 c20 -48 17 -65 -6 -35 -18 23 -28 70 -14 70 3 0 12 -16 20 -35z m1045 -25 c6 0 7 -4 4 -10 -3 -5 -3 -10 2 -10 12 0 35 16 34 24 -1 3 2 6 5 5 4 0 11 5 15 13 6 9 9 9 9 1 0 -6 -12 -21 -27 -33 -16 -12 -27 -25 -26 -28 1 -4 -7 -15 -18 -25 -21 -19 -19 -21 -33 61 -5 30 -4 32 10 18 8 -9 20 -16 25 -16z m209 12 c0 -13 -12 -22 -22 -16 -10 6 -1 24 13 24 5 0 9 -4 9 -8z m130 -16 c0 -2 -8 -10 -17 -17 -16 -13 -17 -12 -4 4 13 16 21 21 21 13z m70 -31 c0 -19 -29 -65 -41 -65 -7 0 -39 51 -39 64 0 6 29 13 58 15 14 1 22 -5 22 -14z m-1176 -71 c72 -40 103 -92 78 -131 -5 -9 -12 -2 -20 21 -7 19 -29 46 -50 62 -40 29 -62 53 -62 66 0 12 3 11 54 -18z m881 -3 c3 -5 2 -12 -3 -15 -5 -3 -9 1 -9 9 0 17 3 19 12 6 z m-924 -38 c11 -15 11 -16 -1 -6 -10 9 -17 10 -27 1 -11 -8 -12 -7 -7 6 8 21 18 20 35 -1z m194 -68 c-2 -52 1 -82 7 -78 6 3 7 -3 3 -17 -5 -17 -4 -21 6 -15 9 6 10 3 5 -11 -4 -10 -4 -16 -1 -12 12 12 95 -81 95 -107 0 -5 -10 7 -23 28 -23 38 -23 38 -46 20 -25 -21 -37 -78 -19 -89 7 -5 9 -2 4 7 -4 8 2 4 13 -9 15 -17 26 -21 45 -16 22 5 26 3 26 -14 0 -12 10 -28 22 -37 21 -14 23 -14 30 2 3 10 7 14 7 8 1 -5 5 -4 10 4 7 12 13 12 24 3 7 -7 18 -8 22 -4 4 4 0 -7 -10 -25 -10 -18 -21 -30 -24 -28 -3 2 -7 -37 -7 -86 -1 -49 3 -86 7 -83 5 3 6 -2 3 -10 -3 -9 -10 -16 -15 -16 -5 0 -9 -8 -9 -19 0 -10 -10 -26 -22 -35 -17 -13 -18 -16 -5 -12 10 3 15 2 12 -4 -3 -6 -13 -10 -20 -10 -11 0 -13 10 -9 43 3 23 7 47 9 54 2 6 -3 17 -10 23 -8 7 -12 16 -9 21 3 5 0 9 -5 9 -6 0 -11 6 -11 14 0 8 -5 18 -12 22 -7 4 -8 3 -4 -4 4 -7 5 -12 2 -12 -4 0 -14 18 -23 40 -10 22 -21 40 -25 40 -4 0 -6 16 -3 35 2 22 0 33 -6 30 -6 -4 -8 3 -5 17 3 21 -13 47 -31 49 -5 0 -15 5 -23 10 -13 7 -13 8 2 9 9 0 19 -6 21 -12 4 -10 6 -10 6 0 1 19 -30 27 -43 11 -17 -22 -44 -22 -51 1 -3 11 -11 20 -17 20 -6 0 -8 3 -5 7 9 8 -24 32 -45 33 -9 0 -23 -9 -31 -20 -8 -11 -17 -18 -20 -15 -4 3 -5 2 -2 -1 2 -4 0 -15 -6 -26 -6 -11 -11 -33 -11 -49 -1 -28 -2 -29 -20 -13 -10 10 -16 19 -13 22 2 3 0 13 -6 23 -5 11 -6 19 -2 19 9 0 15 63 17 168 1 67 10 90 22 59 2 -7 14 -13 24 -14 11 -1 18 2 15 7 -3 4 2 10 10 14 18 7 20 47 3 65 -11 11 -8 11 12 0 14 -7 29 -12 33 -11 5 2 7 -3 5 -10 -3 -7 -1 -17 4 -23 5 -5 15 -19 23 -30 14 -20 14 -20 36 2 12 12 23 36 24 52 1 25 12 44 41 70 0 1 -1 -37 -1 -84z m-207 33 c14 -14 16 -58 2 -58 -12 0 -30 33 -30 54 0 19 11 21 28 4z m509 -10 c-3 -8 -6 -5 -6 6 -1 11 2 17 5 13 3 -3 4 -12 1 -19z m-929 -80 c3 -30 0 -38 -13 -38 -21 0 -54 39 -55 63 0 15 7 18 33 15 29 -3 32 -6 35 -40z m939 10 c-3 -7 -5 -2 -5 12 0 14 2 19 5 13 2 -7 2 -19 0 -25z m-233 -191 c6 -15 6 -30 2 -34 -10 -10 -36 26 -36 50 0 26 23 16 34 -16z m41 -37 c-3 -5 -12 -10 -18 -10 -7 0 -6 4 3 10 19 12 23 12 15 0z"/>
-    <path d="M2727 4333 c-4 -3 -7 -12 -7 -20 0 -17 26 -17 33 1 8 21 -11 35 -26 19z"/>
-    <path d="M3055 3471 c-3 -5 -2 -12 3 -15 5 -3 9 1 9 9 0 17 -3 19 -12 6z"/>
-    <path d="M3134 3374 c-18 -15 -18 -15 2 -5 12 6 25 7 29 3 5 -4 5 -1 1 6 -9 15 -8 15 -32 -4z"/>
-    <path d="M3790 3790 c0 -5 7 -10 15 -10 8 0 15 5 15 10 0 6 -7 10 -15 10 -8 0 -15 -4 -15 -10z"/>
-    <path d="M3800 3715 c0 -10 29 -24 34 -17 3 6 -3 12 -14 15 -11 3 -20 4 -20 2z"/>
-    <path d="M3857 3614 c6 -15 23 -19 23 -5 0 5 -7 11 -14 14 -10 4 -13 1 -9 -9z"/>
-    <path d="M3862 3569 c2 -6 8 -10 13 -10 5 0 11 4 13 10 2 6 -4 11 -13 11 -9 0 -15 -5 -13 -11z"/>
-    <path d="M3905 3430 c-3 -5 -1 -10 4 -10 6 0 11 5 11 10 0 6 -2 10 -4 10 -3 0 -8 -4 -11 -10z"/>
-    <path d="M3875 3381 c-3 -5 -1 -12 5 -16 5 -3 10 1 10 9 0 18 -6 21 -15 7z"/>
-    <path d="M3880 3280 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M3850 3086 c0 -2 7 -7 16 -10 8 -3 12 -2 9 4 -6 10 -25 14 -25 6 z"/>
-    <path d="M3885 3050 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M2050 3380 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2070 3310 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2105 3269 c-10 -15 3 -25 16 -12 7 7 7 13 1 17 -6 3 -14 1 -17 -5z"/>
-    <path d="M2115 3170 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M2090 3140 c0 -5 7 -10 16 -10 8 0 12 5 9 10 -3 6 -10 10 -16 10 -5 0 -9 -4 -9 -10z"/>
-    <path d="M2100 3069 c0 -5 5 -7 10 -4 6 3 10 8 10 11 0 2 -4 4 -10 4 -5 0 -10 -5 -10 -11z"/>
-    <path d="M2175 2960 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M2160 2920 c0 -5 4 -10 9 -10 6 0 13 5 16 10 3 6 -1 10 -9 10 -9 0 -16 -4 -16 -10z"/>
-    <path d="M2220 2880 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2255 2850 c-3 -5 1 -10 10 -10 9 0 13 5 10 10 -3 6 -8 10 -10 10 -2 0 -7 -4 -10 -10z"/>
-    <path d="M2786 2618 c-9 -12 -16 -30 -16 -39 0 -24 39 -69 59 -69 26 0 52 32 41 50 -6 9 -5 17 3 22 8 5 5 8 -8 8 -12 0 -16 3 -9 8 8 5 3 13 -14 26 -15 12 -22 14 -17 5 7 -12 6 -12 -7 -1 -14 11 -19 9 -32 -10z m42 -20 c13 -13 17 -68 4 -68 -17 0 -32 25 -32 52 0 30 9 35 28 16z"/>
-    <path d="M3690 4170 c-12 -23 -6 -40 16 -40 8 0 14 10 14 24 0 33 -16 42 -30 16z"/>
-    <path d="M3520 4081 c0 -6 5 -13 10 -16 6 -3 10 1 10 9 0 9 -4 16 -10 16 -5 0 -10 -4 -10 -9z"/>
-    <path d="M2470 4040 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M3540 4030 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M3580 4021 c0 -6 5 -13 10 -16 6 -3 10 1 10 9 0 9 -4 16 -10 16 -5 0 -10 -4 -10 -9z"/>
-    <path d="M2445 3980 c4 -6 11 -8 16 -5 14 9 11 15 -7 15 -8 0 -12 -5 -9 -10z"/>
-    <path d="M2310 3940 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2210 3854 c0 -8 5 -12 10 -9 6 4 8 11 5 16 -9 14 -15 11 -15 -7z"/>
-    <path d="M2200 3804 c0 -8 5 -12 10 -9 6 3 10 10 10 16 0 5 -4 9 -10 9 -5 0 -10 -7 -10 -16z"/>
-    <path d="M2195 3720 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M2165 3680 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M1896 3625 c17 -26 26 -30 37 -18 9 9 -23 43 -40 43 -11 0 -10 -5 3 -25z"/>
-    <path d="M2120 3490 c0 -5 7 -10 16 -10 8 0 12 5 9 10 -3 6 -10 10 -16 10 -5 0 -9 -4 -9 -10z"/>
-    <path d="M4116 3292 c-3 -5 1 -9 9 -9 8 0 12 4 9 9 -3 4 -7 8 -9 8 -2 0 -6 -4 -9 -8z"/>
-    <path d="M3750 2799 c0 -5 5 -7 10 -4 6 3 10 8 10 11 0 2 -4 4 -10 4 -5 0 -10 -5 -10 -11z"/>
-    <path d="M3655 2750 c4 -6 11 -8 16 -5 14 9 11 15 -7 15 -8 0 -12 -5 -9 -10z"/>
-    <path d="M3910 2735 c0 -8 9 -19 20 -25 21 -11 25 -4 14 24 -8 20 -34 21 -34 1z"/>
-    <path d="M3615 2720 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7 -4 -4 -10z"/>
-    <path d="M2090 2671 c-15 -29 -13 -32 15 -19 14 6 25 17 25 25 0 20 -28 16 -40 -6z"/>
-    <path d="M3586 2681 c-4 -7 -5 -15 -2 -18 9 -9 19 4 14 18 -4 11 -6 11 -12 0z"/>
-    <path d="M2370 2670 c0 -5 7 -10 15 -10 8 0 15 5 15 10 0 6 -7 10 -15 10 -8 0 -15 -4 -15 -10z"/>
-    <path d="M2431 2654 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-    <path d="M3620 2650 c0 -5 7 -10 15 -10 8 0 15 5 15 10 0 6 -7 10 -15 10 -8 0 -15 -4 -15 -10z"/>
-    <path d="M2390 2630 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2440 2610 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M3560 2610 c0 -5 5 -10 10 -10 6 0 10 5 10 10 0 6 -4 10 -10 10 -5 0 -10 -4 -10 -10z"/>
-    <path d="M2260 2526 c0 -24 12 -46 21 -40 15 9 10 54 -6 54 -8 0 -15 -6 -15 -14z"/>
-    <path d="M3644 2489 c-8 -14 11 -33 25 -25 16 10 13 36 -3 36 -8 0 -18 -5 -22 -11z"/>
-    <path d="M3633 2417 c0 -7 9 -13 19 -13 10 0 18 1 18 3 0 1 -8 7 -18 12 -13 7 -19 6 -19 -2z"/>
-    <path d="M2850 2231 c-17 -33 23 -111 58 -111 15 0 14 4 -9 93 -11 40 -32 48 -49 18z"/>
-  </g>
+    <header class="sticky top-0 z-50 glass-panel border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600/30 to-phantom-900 border border-blue-500/50 flex items-center justify-center group-hover:border-blue-400 transition-colors glow-blue">
+                    <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
-                        
                 </div>
                 <div>
-                    <h1 class="font-bold tracking-wider text-base md:text-lg text-white">PHANTOM CLUB</h1>
-                    <p class="text-[10px] text-neutral-400 uppercase tracking-widest">Store Oficial</p>
+                    <span class="text-base sm:text-lg font-black tracking-widest text-white uppercase block leading-none">PHANTOM CLUB</span>
+                    <span class="text-[10px] sm:text-xs font-semibold tracking-widest text-blue-400 uppercase block mt-0.5">STORE OFICIAL</span>
                 </div>
-            </div>
-            <a href="https://wa.me/584120000000?text=Hola,%20vengo%20de%20la%20web%20y%20quiero%20más%20información" target="_blank" rel="noopener noreferrer" class="bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-medium px-4 py-2 rounded-full transition-all flex items-center space-x-2 tap-effect">
-                <i class="fa-brands fa-whatsapp text-whatsapp text-sm"></i>
-                <span class="hidden sm:inline">Contacto</span>
             </a>
-        </div>
 
-        <!-- Category Selector (Main Menu) -->
-        <div class="bg-neutral-950/80 border-t border-neutral-900 py-2.5 px-4">
-            <div class="max-w-4xl mx-auto flex items-center space-x-2 overflow-x-auto no-scrollbar" id="categoryContainer">
-                <!-- Gorras Button with Baseball Cap SVG Icon -->
-                <button onclick="switchCategory('gorras')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all bg-white text-black shadow tap-effect flex items-center space-x-1.5" data-category="gorras">
-                    <svg class="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
-                    <span>Gorras</span>
-                </button>
-                <button onclick="switchCategory('crocs')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 tap-effect flex items-center space-x-1.5" data-category="crocs">
-                    <i class="fa-solid fa-shoe-prints"></i>
-                    <span>Crocs & Calzado</span>
-                </button>
-                <button onclick="switchCategory('proximamente')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 tap-effect flex items-center space-x-1.5" data-category="proximamente">
-                    <i class="fa-solid fa-clock"></i>
-                    <span>Próximamente</span>
+            <!-- Search & Cart controls -->
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center relative">
+                    <span class="absolute left-3 text-phantom-400">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="desktop-search-input" placeholder="Buscar gorras, crocs..." 
+                        class="bg-phantom-700/80 text-sm text-white placeholder-phantom-400 pl-9 pr-4 py-2 rounded-xl border border-white/5 focus:outline-none focus:border-blue-500/50 w-64 transition-all">
+                </div>
+
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-phantom-700/80 border border-white/10 hover:border-blue-500/40 text-white transition-all flex items-center gap-2 group">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden sm:inline text-xs font-medium pr-1">Carrito</span>
+                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg transition-transform scale-0">0</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- Category Banner / Title Info -->
-        <div class="mb-6 animate-page-enter" id="categoryHeader">
-            <h2 id="catTitle" class="text-2xl font-bold tracking-tight text-white mb-1">CATÁLOGO DE GORRAS</h2>
-            <p id="catDesc" class="text-xs md:text-sm text-neutral-400">Explora los modelos en video y pide directamente al WhatsApp.</p>
-        </div>
+        <!-- Search Bar & Category Navigation (Todo, Gorras, Crocs, Próximamente) -->
+        <section class="mb-8">
+            <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between bg-phantom-700/40 p-3 rounded-2xl border border-white/5 backdrop-blur-md">
+                
+                <!-- Category Buttons -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full lg:w-auto" id="category-buttons">
+                    <button onclick="setCategory('todo')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30" data-category="todo">
+                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                        <span>Todo</span>
+                    </button>
+                    <button onclick="setCategory('gorras')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="gorras">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 12h20M12 4a8 8 0 0 0-8 8v2h16v-2a8 8 0 0 0-8-8zM17 14v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-4"/>
+                        </svg>
+                        <span>Gorras</span>
+                    </button>
+                    <!-- Exact Crocs Logo Silhouette requested by user (no text) -->
+                    <button onclick="setCategory('crocs')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="crocs">
+                        <svg class="w-5 h-4" viewBox="0 0 240 130" fill="currentColor">
+                            <path d="M 215 35 C 190 35 185 55 160 55 C 135 55 130 35 105 35 C 70 35 30 50 15 80 C 5 95 10 115 35 120 C 80 125 150 125 190 110 C 215 100 230 75 225 55 C 223 45 220 35 215 35 Z"/>
+                            <circle cx="70" cy="65" r="12" fill="#0b0f19"/>
+                            <circle cx="105" cy="65" r="12" fill="#0b0f19"/>
+                            <circle cx="190" cy="75" r="9" fill="#0b0f19"/>
+                            <circle cx="210" cy="75" r="9" fill="#0b0f19"/>
+                        </svg>
+                        <span>Crocs</span>
+                    </button>
+                    <button onclick="setCategory('proximamente')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="proximamente">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        <span>Próximamente</span>
+                    </button>
+                </div>
 
-        <!-- Subfilter Tags Bar -->
-        <div class="flex items-center space-x-2 mb-6 overflow-x-auto no-scrollbar">
-            <button onclick="filterProducts('todos')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all tap-effect" data-filter="todos">Todas</button>
-            <button onclick="filterProducts('exclusivos')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all tap-effect" data-filter="exclusivos">Exclusivos</button>
-            <button onclick="filterProducts('ofertas')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all tap-effect" data-filter="ofertas">Ofertas</button>
-            <button onclick="filterProducts('agotado')" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all tap-effect" data-filter="agotado">Agotados</button>
-        </div>
+                <!-- Live Search Bar -->
+                <div class="relative w-full lg:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-phantom-400">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="main-search-input" oninput="handleSearch(this.value)" placeholder="Buscar en catálogo..." 
+                        class="w-full bg-phantom-800 text-sm text-white placeholder-phantom-400 pl-10 pr-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-blue-500/50 transition-all">
+                </div>
 
-        <!-- Products Grid Container with Page Animation Target -->
-        <div id="productsGridWrapper" class="animate-page-enter">
-            <!-- Products Grid -->
-            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                <!-- Dynamic Cards injected via JS -->
             </div>
-        </div>
+        </section>
 
-        <!-- Empty State (Hidden by default) -->
-        <div id="emptyState" class="hidden text-center py-16">
-            <i class="fa-solid fa-box-open text-4xl text-neutral-600 mb-3"></i>
-            <p class="text-neutral-400 text-sm">No hay productos disponibles en este filtro por los momentos.</p>
-        </div>
+        <section id="subfilters-container" class="mb-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <!-- Dynamically populated via JS -->
+        </section>
+
+        <section class="mb-16">
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Products injected via JS -->
+            </div>
+            
+            <div id="empty-state" class="hidden text-center py-20 bg-phantom-700/20 rounded-3xl border border-white/5">
+                <div class="w-16 h-16 bg-phantom-700 rounded-full flex items-center justify-center mx-auto mb-4 text-phantom-400">
+                    <i data-lucide="package-open" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">No se encontraron productos</h3>
+                <p class="text-sm text-phantom-400">Intenta ajustando tu búsqueda o cambiando de categoría.</p>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Product Detail Modal -->
-    <div id="productModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-cardBg border border-neutral-800 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
-            <!-- Close Button -->
-            <button onclick="closeModal()" class="absolute top-3 right-3 z-10 w-9 h-9 bg-black/60 hover:bg-black/80 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all tap-effect">
-                <i class="fa-solid fa-xmark text-base"></i>
-            </button>
-
-            <!-- Modal Media container -->
-            <div class="relative w-full h-64 sm:h-72 bg-black flex items-center justify-center">
-                <video id="modalVideo" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
-                <div id="modalBadgeContainer" class="absolute top-3 left-3"></div>
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300">
+        <div id="cart-backdrop" onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="cart-panel" class="absolute inset-y-0 right-0 max-w-md w-full bg-phantom-800 border-l border-white/10 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 pointer-events-auto">
+            
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-phantom-700/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Tu Carrito</h2>
+                        <p class="text-xs text-phantom-400" id="cart-count-subtitle">0 artículos</p>
+                    </div>
+                </div>
+                <button onclick="toggleCart()" class="p-2 rounded-xl bg-phantom-700 text-phantom-300 hover:text-white hover:bg-phantom-600 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </div>
 
-            <!-- Modal Content -->
-            <div class="p-5 flex-grow overflow-y-auto">
-                <h3 id="modalTitle" class="text-lg font-bold text-white mb-2"></h3>
-                <div class="flex items-center space-x-3 mb-4">
-                    <span id="modalPrice" class="text-xl font-bold text-emerald-400"></span>
-                    <span id="modalOldPrice" class="text-sm text-neutral-500 line-through"></span>
-                </div>
-                <p id="modalDescription" class="text-xs md:text-sm text-neutral-300 leading-relaxed mb-6"></p>
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Injected via JS -->
+            </div>
 
-                <!-- WhatsApp Order CTA inside modal -->
-                <a id="modalWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-whatsapp hover:bg-whatsappHover text-black font-bold py-3.5 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm shadow-lg shadow-whatsapp/20 tap-effect">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>PEDIR AHORA POR WHATSAPP</span>
-                </a>
+            <div class="p-6 border-t border-white/10 bg-phantom-700/50 space-y-4">
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between text-phantom-300">
+                        <span>Tasa BCV Referencia:</span>
+                        <span class="text-white font-medium" id="cart-bcv-rate">36.50 VES/$</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-bold text-white pt-2 border-t border-white/10">
+                        <span>Total estimado:</span>
+                        <div class="text-right">
+                            <div class="text-blue-400" id="cart-total-usd">$0.00</div>
+                            <div class="text-xs text-phantom-400 font-normal" id="cart-total-ves">Bs. 0.00</div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition-all shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 group">
+                    <i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span>Completar Pedido por WhatsApp</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto opacity-0 pointer-events-none transition-all duration-300">
+        <div onclick="closeModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
+        <div id="modal-content-box" class="relative bg-phantom-800 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 z-10 my-auto">
+            <button onclick="closeModal()" class="sticky top-4 right-4 ml-auto z-30 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-colors flex items-center justify-center shadow-lg border border-white/20 float-right mr-4 mt-4">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-body-content" class="clear-both">
+                <!-- Dynamically injected -->
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-neutral-900 bg-black py-6 mt-12 text-center">
-        <div class="max-w-4xl mx-auto px-4">
-            <p class="text-xs text-neutral-500 mb-1">© 2026 PHANTOM CLUB. Todos los derechos reservados.</p>
-            <p class="text-[10px] text-neutral-600">Catálogo optimizado para GitHub Pages.</p>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-phantom-700 border border-blue-500/40 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+                <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-400">Phantom Club</h4>
+                <p id="toast-msg" class="text-sm font-medium text-white"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 bg-phantom-900 mt-20 py-12 text-center text-sm text-phantom-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold">P</div>
+                <span class="font-bold text-white tracking-widest uppercase">PHANTOM CLUB STORE</span>
+            </div>
+            <p>&copy; 2026 Phantom Club. Todos los derechos reservados. Exclusividad y Estilo.</p>
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-1.5 text-xs text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sistema Activo
+                </span>
+            </div>
         </div>
     </footer>
 
-    <!-- JavaScript Application Logic -->
     <script>
-        // Database of products categorized
-        const catalogData = {
-            gorras: {
-                title: "CATÁLOGO DE GORRAS",
-                desc: "Explora los modelos en video y pide directamente al WhatsApp.",
-                products: [
-                    {
-                        id: "g1",
-                        title: "DandyHats X Fuerza Regida",
-                        price: "$38.00 BCV",
-                        oldPrice: "$46.00 BCV",
-                        badge: "AGOTADO",
-                        badgeClass: "bg-red-600 text-white",
-                        filterTag: "agotado",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-wearing-a-cap-and-sunglasses-41887-large.mp4",
-                        description: "Edición limitada colaboración especial con Fuerza Regida. Acabados bordados en alta definición 3D, material premium resistente y ajuste trasero graduable."
-                    },
-                    {
-                        id: "g2",
-                        title: "BarbasHats Galaxy",
-                        price: "$47.00 BCV",
-                        oldPrice: "",
-                        badge: "EXCLUSIVO",
-                        badgeClass: "bg-amber-500 text-black font-semibold",
-                        filterTag: "exclusivos",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-with-cap-looking-at-the-camera-41886-large.mp4",
-                        description: "Diseño estelar con detalles brillantes en pedrería fina de alta fijación. Pieza de colección exclusiva para verdaderos conocedores."
-                    },
-                    {
-                        id: "g3",
-                        title: "SadBoys Classic Trucker",
-                        price: "$32.00 BCV",
-                        oldPrice: "$40.00 BCV",
-                        badge: "OFERTA",
-                        badgeClass: "bg-emerald-600 text-white",
-                        filterTag: "ofertas",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-wearing-a-cap-in-an-urban-setting-41885-large.mp4",
-                        description: "Estilo urbano underground con malla transpirable trasera y parche frontal bordado de alta calidad. Cómoda para el día a día."
-                    },
-                    {
-                        id: "g4",
-                        title: "Phantom Shadow Edition",
-                        price: "$42.00 BCV",
-                        oldPrice: "",
-                        badge: "EXCLUSIVO",
-                        badgeClass: "bg-amber-500 text-black font-semibold",
-                        filterTag: "exclusivos",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-wearing-a-cap-and-sunglasses-41888-large.mp4",
-                        description: "Diseño completamente negro mate con acentos reflectivos nocturnos. Edición limitada de la casa Phantom."
-                    }
-                ]
+        const BCV_RATE = 36.50;
+
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: "Gorra Phantom Blue Steel Edition",
+                category: "gorras",
+                subfilter: "exclusivas",
+                priceUSD: 35.00,
+                badge: "Exclusiva",
+                badgeColor: "bg-blue-600/20 text-blue-400 border-blue-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-with-cap-and-sunglasses-42171-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/3b82f6?text=Gorra+Phantom+Blue",
+                description: "Gorra trucker de alta gama con bordado 3D azul en relieve, cierre snapback ajustable y panel transpirable de máxima calidad.",
+                sizes: ["Única (Ajustable)"],
+                stock: 8,
+                specs: ["Material: 100% Algodón Premium", "Bordado de alta densidad", "Edición numerada 1/100"]
             },
-            crocs: {
-                title: "CATÁLOGO DE CROCS & CALZADO",
-                desc: "Comodidad y estilo urbano con los mejores diseños y charms personalizados.",
-                products: [
-                    {
-                        id: "c1",
-                        title: "Crocs Classic Platform Black",
-                        price: "$55.00 BCV",
-                        oldPrice: "$65.00 BCV",
-                        badge: "OFERTA",
-                        badgeClass: "bg-emerald-600 text-white",
-                        filterTag: "ofertas",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-feet-of-a-person-walking-with-sneakers-42861-large.mp4",
-                        description: "Plataforma alta con diseño ultraligero, resistente al agua y ventilación optimizada. Incluye set de Jibbitz de regalo."
-                    },
-                    {
-                        id: "c2",
-                        title: "Crocs Echo Clog Metallic",
-                        price: "$68.00 BCV",
-                        oldPrice: "",
-                        badge: "EXCLUSIVO",
-                        badgeClass: "bg-amber-500 text-black font-semibold",
-                        filterTag: "exclusivos",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-person-walking-with-stylish-shoes-42862-large.mp4",
-                        description: "Línea futurista con soporte acolchado de doble densidad y correas ajustables. Máxima tendencia urbana."
-                    }
-                ]
+            {
+                id: 2,
+                name: "Gorra Cyberpunk Electric Blue",
+                category: "gorras",
+                subfilter: "ofertas",
+                priceUSD: 24.00,
+                oldPriceUSD: 32.00,
+                badge: "Oferta",
+                badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-wearing-a-cap-looking-at-the-camera-42168-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/10b981?text=Gorra+Cyberpunk",
+                description: "Gorra estilo cyberpunk con detalles reflectantes azules y correa táctica ajustable. Perfecta para outfits nocturnos.",
+                sizes: ["Única (Ajustable)"],
+                stock: 12,
+                specs: ["Detalles reflectantes 3M", "Tejido repelente al agua", "Cierre táctico con hebilla"]
             },
-            proximamente: {
-                title: "PRÓXIMAMENTE EN PHANTOM CLUB",
-                desc: "Nuevas líneas de productos que se añadirán muy pronto al catálogo.",
-                products: [
-                    {
-                        id: "p1",
-                        title: "Línea de Hoodies Oversize",
-                        price: "Próximamente",
-                        oldPrice: "",
-                        badge: "PRONTO",
-                        badgeClass: "bg-purple-600 text-white",
-                        filterTag: "todos",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-posing-with-a-hoodie-in-an-urban-setting-41884-large.mp4",
-                        description: "Hoodies de algodón peinado de alto gramaje con cortes oversize y estampados en serigrafía 3D de alta durabilidad."
-                    },
-                    {
-                        id: "p2",
-                        title: "Gafas de Sol Edición Limitada",
-                        price: "Próximamente",
-                        oldPrice: "",
-                        badge: "PRONTO",
-                        badgeClass: "bg-purple-600 text-white",
-                        filterTag: "todos",
-                        videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-with-sunglasses-outdoors-41883-large.mp4",
-                        description: "Gafas con protección UV400, monturas de acetato reforzado y diseños vanguardistas."
-                    }
-                ]
+            {
+                id: 3,
+                name: "Crocs Phantom Electric Wave",
+                category: "crocs",
+                subfilter: "exclusivas",
+                priceUSD: 65.00,
+                badge: "Exclusiva",
+                badgeColor: "bg-blue-600/20 text-blue-400 border-blue-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-feet-of-a-person-walking-with-sneakers-41586-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/3b82f6?text=Crocs+Electric",
+                description: "Edición especial modificada con tiras de alta resistencia, detalles metálicos azules y pines Jibbitz exclusivos de Phantom Club.",
+                sizes: ["39-40", "41-42", "43-44"],
+                stock: 5,
+                specs: ["Resistente al agua", "Soporte ergonómico acolchado", "Incluye set de 4 Jibbitz metálicos"]
+            },
+            {
+                id: 4,
+                name: "Crocs LiteRide Midnight Blue",
+                category: "crocs",
+                subfilter: "ofertas",
+                priceUSD: 49.00,
+                oldPriceUSD: 60.00,
+                badge: "Oferta",
+                badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-legs-of-a-man-walking-with-stylish-shoes-41585-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/10b981?text=Crocs+LiteRide",
+                description: "Máxima comodidad con plantilla de espuma LiteRide para pisadas ultra suaves. Diseño aerodinámico en tonos azul noche.",
+                sizes: ["40-41", "42-43"],
+                stock: 0,
+                specs: ["Plantillas de espuma LiteRide", "Suela antideslizante", "Ultra ligeras"]
+            },
+            {
+                id: 5,
+                name: "Crocs Echo Clog Phantom Blue",
+                category: "crocs",
+                subfilter: "agotados",
+                priceUSD: 75.00,
+                badge: "Agotado",
+                badgeColor: "bg-rose-500/20 text-rose-400 border-rose-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-feet-walking-on-a-street-41588-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/f43f5e?text=Crocs+Echo",
+                description: "Diseño futurista y moldeado audaz en color azul titanio. Este modelo se encuentra temporalmente agotado.",
+                sizes: ["41", "42", "43"],
+                stock: 0,
+                specs: ["Diseño escultural vanguardista", "Ventilación avanzada", "Correa ajustable turbo"]
+            },
+            {
+                id: 6,
+                name: "Gorra Phantom Minimalist Blue",
+                category: "gorras",
+                subfilter: "todas",
+                priceUSD: 28.00,
+                badge: "Popular",
+                badgeColor: "bg-indigo-500/20 text-indigo-400 border-indigo-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-wearing-a-cap-looking-at-the-camera-42168-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/6366f1?text=Gorra+Minimalist",
+                description: "Diseño minimalista con logotipo sutil grabado en placa de acero inoxidable azul mate.",
+                sizes: ["Única (Ajustable)"],
+                stock: 15,
+                specs: ["Placa de acero inoxidable", "Algodón orgánico", "Cinturón de ajuste oculto"]
+            },
+            {
+                id: 7,
+                name: "Próximamente: Phantom Stealth Jacket Blue",
+                category: "proximamente",
+                subfilter: "proximamente",
+                priceUSD: 120.00,
+                badge: "Próximamente",
+                badgeColor: "bg-blue-600/20 text-blue-400 border-blue-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-stylish-man-walking-down-the-street-42170-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/3b82f6?text=Stealth+Jacket",
+                description: "Chaqueta cortavientos impermeable con múltiples bolsillos tácticos. Lanzamiento oficial este próximo mes.",
+                sizes: ["S", "M", "L", "XL"],
+                stock: 25,
+                specs: ["Lanzamiento Exclusivo", "Tejido cortavientos avanzado", "Impermeable 10k"]
+            },
+            {
+                id: 8,
+                name: "Próximamente: Phantom Utility Bag Blue",
+                category: "proximamente",
+                subfilter: "proximamente",
+                priceUSD: 55.00,
+                badge: "Próximamente",
+                badgeColor: "bg-blue-600/20 text-blue-400 border-blue-500/30",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-feet-of-a-person-walking-with-sneakers-41586-large.mp4",
+                imageUrl: "https://placehold.co/600x600/111827/3b82f6?text=Utility+Bag",
+                description: "Bolso cruzado de alta resistencia con cierres impermeables y compartimento acolchado para dispositivos.",
+                sizes: ["Única"],
+                stock: 20,
+                specs: ["Cordura balística", "Cierres YKK impermeables", "Diseño ergonómico"]
             }
-        };
+        ];
 
-        let currentCategory = 'gorras';
-        let currentFilter = 'todos';
+        let currentCategory = 'todo';
+        let currentSubfilter = 'todas';
+        let searchQuery = '';
+        let cart = [];
 
-        // Initialize App on load
-        window.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderSubfilters();
             renderProducts();
+            updateCartUI();
+
+            document.getElementById('desktop-search-input').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                document.getElementById('main-search-input').value = searchQuery;
+                renderProducts();
+            });
+            document.getElementById('main-search-input').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                document.getElementById('desktop-search-input').value = searchQuery;
+                renderProducts();
+            });
         });
 
-        // Trigger smooth transition animation
-        function triggerTransition() {
-            const wrapper = document.getElementById('productsGridWrapper');
-            const header = document.getElementById('categoryHeader');
+        function setCategory(cat) {
+            currentCategory = cat;
+            currentSubfilter = 'todas';
             
-            wrapper.classList.remove('animate-page-enter');
-            header.classList.remove('animate-page-enter');
-            
-            void wrapper.offsetWidth; // Trigger reflow
-            
-            wrapper.classList.add('animate-page-enter');
-            header.classList.add('animate-page-enter');
-        }
-
-        // Switch Main Category
-        function switchCategory(categoryKey) {
-            currentCategory = categoryKey;
-            currentFilter = 'todos';
-
-            // Update category buttons active state
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                if(btn.getAttribute('data-category') === categoryKey) {
-                    btn.className = "cat-btn px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all bg-white text-black shadow tap-effect flex items-center space-x-1.5";
+                if(btn.dataset.category === cat) {
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30";
                 } else {
-                    btn.className = "cat-btn px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 tap-effect flex items-center space-x-1.5";
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5";
                 }
             });
 
-            // Reset filter buttons active state to 'todos'
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.getAttribute('data-filter') === 'todos') {
-                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all tap-effect";
-                } else {
-                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all tap-effect";
-                }
-            });
-
-            // Update Category Header Info
-            const catInfo = catalogData[categoryKey];
-            document.getElementById('catTitle').textContent = catInfo.title;
-            document.getElementById('catDesc').textContent = catInfo.desc;
-
+            renderSubfilters();
             renderProducts();
-            triggerTransition();
         }
 
-        // Filter products by tag
-        function filterProducts(filterTag) {
-            currentFilter = filterTag;
+        function renderSubfilters() {
+            const container = document.getElementById('subfilters-container');
+            let filters = [];
 
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.getAttribute('data-filter') === filterTag) {
-                    btn.className = "filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-white transition-all tap-effect";
+            if (currentCategory === 'todo' || currentCategory === 'gorras' || currentCategory === 'crocs') {
+                filters = [
+                    { id: 'todas', label: 'Todas' },
+                    { id: 'exclusivas', label: '⭐ Exclusivas' },
+                    { id: 'ofertas', label: '🔥 Ofertas' },
+                    { id: 'agotados', label: '❌ Agotados' }
+                ];
+            } else if (currentCategory === 'proximamente') {
+                filters = [
+                    { id: 'proximamente', label: '🚀 Próximos Lanzamientos' }
+                ];
+            }
+
+            container.innerHTML = filters.map(f => `
+                <button onclick="setSubfilter('${f.id}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${currentSubfilter === f.id ? 'bg-blue-600 text-white border-blue-500 shadow-md' : 'bg-phantom-700/60 text-phantom-300 hover:text-white border-white/5 hover:bg-phantom-700'}">
+                    ${f.label}
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function setSubfilter(sub) {
+            currentSubfilter = sub;
+            renderSubfilters();
+            renderProducts();
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.toLowerCase().trim();
+            document.getElementById('desktop-search-input').value = val;
+            document.getElementById('main-search-input').value = val;
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const emptyState = document.getElementById('empty-state');
+
+            const filtered = PRODUCTS.filter(p => {
+                let matchCat = currentCategory === 'todo' || p.category === currentCategory;
+                
+                let matchSub = true;
+                if (currentSubfilter !== 'todas') {
+                    if (currentSubfilter === 'proximamente') {
+                        matchSub = p.category === 'proximamente';
+                    } else if (currentSubfilter === 'agotados') {
+                        matchSub = p.stock === 0 || p.subfilter === 'agotados';
+                    } else {
+                        matchSub = p.subfilter === currentSubfilter;
+                    }
+                }
+
+                let matchSearch = searchQuery === '' || 
+                    p.name.toLowerCase().includes(searchQuery) || 
+                    p.description.toLowerCase().includes(searchQuery);
+
+                return matchCat && matchSub && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(p => {
+                const priceVES = (p.priceUSD * BCV_RATE).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                return `
+                    <div class="group bg-phantom-700/30 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                        <div class="relative w-full h-64 overflow-hidden bg-black cursor-pointer" onclick="openModal(${p.id})">
+                            <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+                                <source src="${p.videoUrl}" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-phantom-800 via-transparent to-transparent opacity-80"></div>
+                            
+                            <div class="absolute top-4 left-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${p.badgeColor}">
+                                    ${p.badge}
+                                </span>
+                            </div>
+
+                            <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-[11px] font-medium text-phantom-200 border border-white/10">
+                                ${p.stock > 0 ? `${p.stock} disponibles` : 'Agotado'}
+                            </div>
+                        </div>
+
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 block mb-1">${p.category}</span>
+                                <h3 onclick="openModal(${p.id})" class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors cursor-pointer mb-2">${p.name}</h3>
+                                <p class="text-xs text-phantom-300 line-clamp-2 mb-4">${p.description}</p>
+                            </div>
+
+                            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                                <div>
+                                    <div class="text-lg font-black text-blue-400">$${p.priceUSD.toFixed(2)}</div>
+                                    <div class="text-xs text-phantom-400 font-medium">Bs. ${priceVES}</div>
+                                </div>
+                                <button onclick="openModal(${p.id})" class="px-4 py-2.5 rounded-xl bg-phantom-600 hover:bg-blue-600 hover:text-white text-white text-xs font-bold transition-all flex items-center gap-1.5 border border-white/5">
+                                    <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                    <span>Ver Detalle</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        function openModal(id) {
+            const p = PRODUCTS.find(prod => prod.id === id);
+            if (!p) return;
+
+            const priceVES = (p.priceUSD * BCV_RATE).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const modalBox = document.getElementById('product-modal');
+            const contentBox = document.getElementById('modal-body-content');
+
+            contentBox.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="relative h-72 md:h-full bg-black min-h-[300px] overflow-hidden rounded-t-[calc(1.5rem-1px)] md:rounded-tr-none md:rounded-l-[calc(1.5rem-1px)]">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                            <source src="${p.videoUrl}" type="video/mp4">
+                        </video>
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${p.badgeColor}">
+                                ${p.badge}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 block mb-1">Phantom Club Collection</span>
+                            <h2 class="text-2xl font-black text-white mb-3">${p.name}</h2>
+                            <p class="text-sm text-phantom-300 mb-6 leading-relaxed">${p.description}</p>
+                            
+                            <div class="space-y-2 mb-6">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-phantom-400">Especificaciones:</h4>
+                                <ul class="text-xs space-y-1.5 text-phantom-200">
+                                    ${p.specs.map(spec => `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>${spec}</li>`).join('')}
+                                </ul>
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-phantom-400 mb-2">Selecciona Talla / Variante:</label>
+                                <div class="flex flex-wrap gap-2" id="modal-size-selector">
+                                    ${p.sizes.map((s, idx) => `
+                                        <button onclick="selectSize(this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border ${idx === 0 ? 'bg-blue-600 text-white border-blue-500' : 'bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30'}">${s}</button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-baseline justify-between mb-4 pt-4 border-t border-white/10">
+                                <div>
+                                    <span class="text-2xl font-black text-blue-400">$${p.priceUSD.toFixed(2)}</span>
+                                    <span class="text-xs text-phantom-400 block">Tasa BCV: Bs. ${priceVES}</span>
+                                </div>
+                                <span class="text-xs font-medium ${p.stock > 0 ? 'text-emerald-400' : 'text-rose-400'}">${p.stock > 0 ? `Stock: ${p.stock} disp.` : 'Agotado'}</span>
+                            </div>
+
+                            <button onclick="addToCart(${p.id})" ${p.stock === 0 ? 'disabled' : ''} class="w-full py-3.5 rounded-xl ${p.stock > 0 ? 'bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 cursor-pointer' : 'bg-phantom-600 text-phantom-400 cursor-not-allowed'} transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                <span>${p.stock > 0 ? 'Agregar al Carrito' : 'Agotado Temporalmente'}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            modalBox.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('modal-content-box').classList.remove('scale-95');
+            document.getElementById('modal-content-box').classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modalBox = document.getElementById('product-modal');
+            modalBox.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('modal-content-box').classList.remove('scale-100');
+            document.getElementById('modal-content-box').classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30";
+            });
+            btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-blue-600 text-white border-blue-500";
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none');
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                backdrop.classList.add('opacity-100');
+                panel.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                panel.classList.add('translate-x-full');
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    drawer.classList.add('pointer-events-none');
+                }, 300);
+                document.body.style.overflow = '';
+            }
+        }
+
+        function addToCart(id) {
+            const p = PRODUCTS.find(prod => prod.id === id);
+            if (!p || p.stock === 0) return;
+
+            const selectedSizeBtn = document.querySelector('.size-btn.bg-blue-600');
+            const chosenSize = selectedSizeBtn ? selectedSizeBtn.innerText : p.sizes[0];
+
+            const existingItem = cart.find(item => item.id === id && item.size === chosenSize);
+            if (existingItem) {
+                if (existingItem.quantity < p.stock) {
+                    existingItem.quantity++;
                 } else {
-                    btn.clas
+                    showToast('Has alcanzado el stock disponible');
+                    return;
+                }
+            } else {
+                cart.push({
+                    id: p.id,
+                    name: p.name,
+                    priceUSD: p.priceUSD,
+                    imageUrl: p.imageUrl,
+                    size: chosenSize,
+                    quantity: 1
+                });
+            }
+
+            closeModal();
+            updateCartUI();
+            showToast(`${p.name} agregado al carrito`);
+            toggleCart();
+        }
+
+        function updateQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const subtitle = document.getElementById('cart-count-subtitle');
+            const totalUsdEl = document.getElementById('cart-total-usd');
+            const totalVesEl = document.getElementById('cart-total-ves');
+            const bcvRateEl = document.getElementById('cart-bcv-rate');
+
+            bcvRateEl.innerText = `${BCV_RATE.toFixed(2)} VES/$`;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalCount > 0) {
+                badge.innerText = totalCount;
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+            }
+
+            subtitle.innerText = `${totalCount} artículo${totalCount === 1 ? '' : 's'} en total`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-phantom-400">
+                        <div class="w-14 h-14 bg-phantom-700/50 rounded-full flex items-center justify-center mx-auto mb-3 text-phantom-400">
+                            <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                        </div>
+                        <p class="text-sm font-medium">Tu carrito está vacío</p>
+                        <p class="text-xs text-phantom-500 mt-1">Explora el catálogo y añade tus piezas favoritas</p>
+                    </div>
+                `;
+                totalUsdEl.innerText = '$0.00';
+                totalVesEl.innerText = 'Bs. 0.00';
+                lucide.createIcons();
+                return;
+            }
+
+            let totalUSD = 0;
+
+            container.innerHTML = cart.map((item, idx) => {
+                const itemTotal = item.priceUSD * item.quantity;
+                totalUSD += itemTotal;
+
+                return `
+                    <div class="flex items-center gap-4 bg-phantom-700/40 p-3.5 rounded-2xl border border-white/5">
+                        <img src="${item.imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl bg-black">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-sm font-bold text-white truncate">${item.name}</h4>
+                            <p class="text-xs text-blue-400 font-medium">Talla: ${item.size}</p>
+                            <p class="text-xs text-phantom-300 mt-0.5">$${item.priceUSD.toFixed(2)} c/u</p>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <button onclick="updateQuantity(${idx}, -1)" class="text-phantom-400 hover:text-rose-400 transition-colors p-1">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <div class="flex items-center gap-2 bg-phantom-800 px-2 py-1 rounded-lg border border-white/5 text-xs">
+                                <button onclick="updateQuantity(${idx}, -1)" class="text-phantom-400 hover:text-white px-1">-</button>
+                                <span class="font-bold text-white w-4 text-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${idx}, 1)" class="text-phantom-400 hover:text-white px-1">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const totalVES = totalUSD * BCV_RATE;
+            totalUsdEl.innerText = `$${totalUSD.toFixed(2)}`;
+            totalVesEl.innerText = `Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+            lucide.createIcons();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Tu carrito está vacío');
+                return;
+            }
+
+            let totalUSD = cart.reduce((sum, item) => sum + (item.priceUSD * item.quantity), 0);
+            let totalVES = totalUSD * BCV_RATE;
+
+            let message = "¡Hola! Phantom Club Store 🦇⚡\nMe gustaría confirmar el siguiente pedido:\n\n";
+            cart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* (Talla: ${item.size}) - Cantidad: ${item.quantity} - Subtotal: $${(item.priceUSD * item.quantity).toFixed(2)}\n`;
+            });
+            message += `\n*Total USD:* $${totalUSD.toFixed(2)}`;
+            message += `\n*Total VES (Tasa BCV ${BCV_RATE}):* Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            message += `\n\nQuedo atento(a) para coordinar el pago y envío. ¡Gracias!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+     
