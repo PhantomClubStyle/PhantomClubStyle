@@ -263,9 +263,26 @@
             </div>
         </div>
     </footer>
+<script>
+        // Tasa BCV inicial por defecto (en caso de que falle la API)
+        let BCV_RATE = 36.50;
 
-    <script>
-        const BCV_RATE = 36.50;
+        async function fetchLiveDollarRate() {
+            try {
+                const response = await fetch('https://ve.dolarapi.com/v1/dolares/bcv');
+                const data = await response.json();
+                
+                if (data && data.promedio) {
+                    BCV_RATE = data.promedio;
+                    console.log("Tasa BCV actualizada automáticamente:", BCV_RATE);
+                    
+                    if (typeof renderProducts === 'function') renderProducts();
+                    if (typeof updateCartUI === 'function') updateCartUI();
+                }
+            } catch (error) {
+                console.warn("No se pudo conectar con la API de tasas, usando tasa por defecto:", BCV_RATE);
+            }
+        }
 
         const PRODUCTS = [
             {
@@ -397,7 +414,10 @@
         let searchQuery = '';
         let cart = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Busca la tasa BCV actualizada antes de renderizar la tienda
+            await fetchLiveDollarRate();
+
             lucide.createIcons();
             renderSubfilters();
             renderProducts();
@@ -473,16 +493,13 @@
             const grid = document.getElementById('product-grid');
             const emptyState = document.getElementById('empty-state');
 
-            // Trigger smooth fade-in animation on re-render
             grid.classList.remove('animate-fade-in');
-            void grid.offsetWidth; // trigger reflow
+            void grid.offsetWidth;
             grid.classList.add('animate-fade-in');
 
             const filtered = PRODUCTS.filter(p => {
-                // 1. Filtrado estricto por categoría seleccionada
                 let matchCat = currentCategory === 'todo' || p.category === currentCategory;
                 
-                // 2. Filtrado por subfiltro
                 let matchSub = true;
                 if (currentSubfilter !== 'todas') {
                     if (currentSubfilter === 'proximamente') {
@@ -494,7 +511,6 @@
                     }
                 }
 
-                // 3. Búsqueda contextual: SOLO busca dentro de los productos que ya cumplen con la categoría activa
                 let matchSearch = searchQuery === '' || 
                     p.name.toLowerCase().includes(searchQuery) || 
                     p.description.toLowerCase().includes(searchQuery);
@@ -790,7 +806,7 @@
                 message += `${index + 1}. *${item.name}* (Talla: ${item.size}) - Cantidad: ${item.quantity} - Subtotal: $${(item.priceUSD * item.quantity).toFixed(2)}\n`;
             });
             message += `\n*Total USD:* $${totalUSD.toFixed(2)}`;
-            message += `\n*Total VES (Tasa BCV ${BCV_RATE}):* Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            message += `\n*Total VES (Tasa BCV ${BCV_RATE.toFixed(2)}):* Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
             message += `\n\nQuedo atento(a) para coordinar el pago y envío. ¡Gracias!`;
 
             const encodedMessage = encodeURIComponent(message);
@@ -812,4 +828,3 @@
     </script>
 </body>
 </html>
-    
