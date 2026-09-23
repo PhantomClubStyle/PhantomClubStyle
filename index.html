@@ -65,6 +65,13 @@
         .glow-blue {
             box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="bg-phantom-800 text-phantom-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
@@ -90,11 +97,11 @@
                     <span class="absolute left-3 text-phantom-400">
                         <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
-                    <input type="text" id="desktop-search-input" placeholder="Buscar gorras, crocs..." 
+                    <input type="text" id="desktop-search-input" placeholder="Buscar en sección..." 
                         class="bg-phantom-700/80 text-sm text-white placeholder-phantom-400 pl-9 pr-4 py-2 rounded-xl border border-white/5 focus:outline-none focus:border-blue-500/50 w-64 transition-all">
                 </div>
 
-                <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-phantom-700/80 border border-white/10 hover:border-blue-500/40 text-white transition-all flex items-center gap-2 group">
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-phantom-700/80 border border-white/10 hover:border-blue-500/40 text-white transition-all duration-200 active:scale-95 flex items-center gap-2 group">
                     <i data-lucide="shopping-bag" class="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform"></i>
                     <span class="hidden sm:inline text-xs font-medium pr-1">Carrito</span>
                     <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg transition-transform scale-0">0</span>
@@ -105,24 +112,24 @@
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- Search Bar & Category Navigation (Todo, Gorras, Crocs, Próximamente) -->
+        <!-- Search Bar & Category Navigation -->
         <section class="mb-8">
             <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between bg-phantom-700/40 p-3 rounded-2xl border border-white/5 backdrop-blur-md">
                 
                 <!-- Category Buttons -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full lg:w-auto" id="category-buttons">
-                    <button onclick="setCategory('todo')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30" data-category="todo">
+                    <button onclick="setCategory('todo')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30" data-category="todo">
                         <i data-lucide="layout-grid" class="w-4 h-4"></i>
                         <span>Todo</span>
                     </button>
-                    <button onclick="setCategory('gorras')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="gorras">
+                    <button onclick="setCategory('gorras')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="gorras">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M2 12h20M12 4a8 8 0 0 0-8 8v2h16v-2a8 8 0 0 0-8-8zM17 14v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-4"/>
                         </svg>
                         <span>Gorras</span>
                     </button>
-                    <!-- Exact Crocs Logo Silhouette requested by user (no text) -->
-                    <button onclick="setCategory('crocs')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="crocs">
+                    <!-- Exact Crocs Logo Silhouette -->
+                    <button onclick="setCategory('crocs')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="crocs">
                         <svg class="w-5 h-4" viewBox="0 0 240 130" fill="currentColor">
                             <path d="M 215 35 C 190 35 185 55 160 55 C 135 55 130 35 105 35 C 70 35 30 50 15 80 C 5 95 10 115 35 120 C 80 125 150 125 190 110 C 215 100 230 75 225 55 C 223 45 220 35 215 35 Z"/>
                             <circle cx="70" cy="65" r="12" fill="#0b0f19"/>
@@ -132,7 +139,7 @@
                         </svg>
                         <span>Crocs</span>
                     </button>
-                    <button onclick="setCategory('proximamente')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="proximamente">
+                    <button onclick="setCategory('proximamente')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="proximamente">
                         <i data-lucide="clock" class="w-4 h-4"></i>
                         <span>Próximamente</span>
                     </button>
@@ -143,7 +150,7 @@
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-phantom-400">
                         <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
-                    <input type="text" id="main-search-input" oninput="handleSearch(this.value)" placeholder="Buscar en catálogo..." 
+                    <input type="text" id="main-search-input" oninput="handleSearch(this.value)" placeholder="Buscar en esta sección..." 
                         class="w-full bg-phantom-800 text-sm text-white placeholder-phantom-400 pl-10 pr-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-blue-500/50 transition-all">
                 </div>
 
@@ -155,11 +162,11 @@
         </section>
 
         <section class="mb-16">
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
                 <!-- Products injected via JS -->
             </div>
             
-            <div id="empty-state" class="hidden text-center py-20 bg-phantom-700/20 rounded-3xl border border-white/5">
+            <div id="empty-state" class="hidden text-center py-20 bg-phantom-700/20 rounded-3xl border border-white/5 animate-fade-in">
                 <div class="w-16 h-16 bg-phantom-700 rounded-full flex items-center justify-center mx-auto mb-4 text-phantom-400">
                     <i data-lucide="package-open" class="w-8 h-8"></i>
                 </div>
@@ -184,7 +191,7 @@
                         <p class="text-xs text-phantom-400" id="cart-count-subtitle">0 artículos</p>
                     </div>
                 </div>
-                <button onclick="toggleCart()" class="p-2 rounded-xl bg-phantom-700 text-phantom-300 hover:text-white hover:bg-phantom-600 transition-colors">
+                <button onclick="toggleCart()" class="p-2 rounded-xl bg-phantom-700 text-phantom-300 hover:text-white hover:bg-phantom-600 transition-all duration-200 active:scale-95">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -207,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <button onclick="checkoutWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition-all shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 group">
+                <button onclick="checkoutWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition-all duration-200 active:scale-95 shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 group">
                     <i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
                     <span>Completar Pedido por WhatsApp</span>
                 </button>
@@ -220,7 +227,7 @@
     <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto opacity-0 pointer-events-none transition-all duration-300">
         <div onclick="closeModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
         <div id="modal-content-box" class="relative bg-phantom-800 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 z-10 my-auto">
-            <button onclick="closeModal()" class="sticky top-4 right-4 ml-auto z-30 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-colors flex items-center justify-center shadow-lg border border-white/20 float-right mr-4 mt-4">
+            <button onclick="closeModal()" class="sticky top-4 right-4 ml-auto z-30 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-all duration-200 active:scale-95 flex items-center justify-center shadow-lg border border-white/20 float-right mr-4 mt-4">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div id="modal-body-content" class="clear-both">
@@ -414,9 +421,9 @@
             
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 if(btn.dataset.category === cat) {
-                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30";
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30";
                 } else {
-                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5";
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5";
                 }
             });
 
@@ -442,7 +449,7 @@
             }
 
             container.innerHTML = filters.map(f => `
-                <button onclick="setSubfilter('${f.id}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${currentSubfilter === f.id ? 'bg-blue-600 text-white border-blue-500 shadow-md' : 'bg-phantom-700/60 text-phantom-300 hover:text-white border-white/5 hover:bg-phantom-700'}">
+                <button onclick="setSubfilter('${f.id}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 active:scale-95 border ${currentSubfilter === f.id ? 'bg-blue-600 text-white border-blue-500 shadow-md' : 'bg-phantom-700/60 text-phantom-300 hover:text-white border-white/5 hover:bg-phantom-700'}">
                     ${f.label}
                 </button>
             `).join('');
@@ -466,9 +473,16 @@
             const grid = document.getElementById('product-grid');
             const emptyState = document.getElementById('empty-state');
 
+            // Trigger smooth fade-in animation on re-render
+            grid.classList.remove('animate-fade-in');
+            void grid.offsetWidth; // trigger reflow
+            grid.classList.add('animate-fade-in');
+
             const filtered = PRODUCTS.filter(p => {
+                // 1. Filtrado estricto por categoría seleccionada
                 let matchCat = currentCategory === 'todo' || p.category === currentCategory;
                 
+                // 2. Filtrado por subfiltro
                 let matchSub = true;
                 if (currentSubfilter !== 'todas') {
                     if (currentSubfilter === 'proximamente') {
@@ -480,6 +494,7 @@
                     }
                 }
 
+                // 3. Búsqueda contextual: SOLO busca dentro de los productos que ya cumplen con la categoría activa
                 let matchSearch = searchQuery === '' || 
                     p.name.toLowerCase().includes(searchQuery) || 
                     p.description.toLowerCase().includes(searchQuery);
@@ -529,7 +544,7 @@
                                     <div class="text-lg font-black text-blue-400">$${p.priceUSD.toFixed(2)}</div>
                                     <div class="text-xs text-phantom-400 font-medium">Bs. ${priceVES}</div>
                                 </div>
-                                <button onclick="openModal(${p.id})" class="px-4 py-2.5 rounded-xl bg-phantom-600 hover:bg-blue-600 hover:text-white text-white text-xs font-bold transition-all flex items-center gap-1.5 border border-white/5">
+                                <button onclick="openModal(${p.id})" class="px-4 py-2.5 rounded-xl bg-phantom-600 hover:bg-blue-600 hover:text-white text-white text-xs font-bold transition-all duration-200 active:scale-95 flex items-center gap-1.5 border border-white/5">
                                     <i data-lucide="eye" class="w-3.5 h-3.5"></i>
                                     <span>Ver Detalle</span>
                                 </button>
@@ -552,10 +567,11 @@
 
             contentBox.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <div class="relative h-72 md:h-full bg-black min-h-[300px] overflow-hidden rounded-t-[calc(1.5rem-1px)] md:rounded-tr-none md:rounded-l-[calc(1.5rem-1px)]">
+                    <div class="relative w-full h-72 md:h-full bg-black min-h-[300px] overflow-hidden rounded-t-[1.5rem] md:rounded-tr-none md:rounded-l-[1.5rem]">
                         <video autoplay muted loop playsinline class="w-full h-full object-cover">
                             <source src="${p.videoUrl}" type="video/mp4">
                         </video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-phantom-800/60 via-transparent to-transparent md:hidden"></div>
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${p.badgeColor}">
                                 ${p.badge}
@@ -579,7 +595,7 @@
                                 <label class="block text-xs font-bold uppercase tracking-wider text-phantom-400 mb-2">Selecciona Talla / Variante:</label>
                                 <div class="flex flex-wrap gap-2" id="modal-size-selector">
                                     ${p.sizes.map((s, idx) => `
-                                        <button onclick="selectSize(this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border ${idx === 0 ? 'bg-blue-600 text-white border-blue-500' : 'bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30'}">${s}</button>
+                                        <button onclick="selectSize(this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all duration-200 active:scale-95 ${idx === 0 ? 'bg-blue-600 text-white border-blue-500' : 'bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30'}">${s}</button>
                                     `).join('')}
                                 </div>
                             </div>
@@ -594,7 +610,7 @@
                                 <span class="text-xs font-medium ${p.stock > 0 ? 'text-emerald-400' : 'text-rose-400'}">${p.stock > 0 ? `Stock: ${p.stock} disp.` : 'Agotado'}</span>
                             </div>
 
-                            <button onclick="addToCart(${p.id})" ${p.stock === 0 ? 'disabled' : ''} class="w-full py-3.5 rounded-xl ${p.stock > 0 ? 'bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 cursor-pointer' : 'bg-phantom-600 text-phantom-400 cursor-not-allowed'} transition-all flex items-center justify-center gap-2">
+                            <button onclick="addToCart(${p.id})" ${p.stock === 0 ? 'disabled' : ''} class="w-full py-3.5 rounded-xl ${p.stock > 0 ? 'bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 cursor-pointer active:scale-95' : 'bg-phantom-600 text-phantom-400 cursor-not-allowed'} transition-all duration-200 flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-bag" class="w-4 h-4"></i>
                                 <span>${p.stock > 0 ? 'Agregar al Carrito' : 'Agotado Temporalmente'}</span>
                             </button>
@@ -602,6 +618,7 @@
                     </div>
                 </div>
             `;
+
             modalBox.classList.remove('opacity-0', 'pointer-events-none');
             document.getElementById('modal-content-box').classList.remove('scale-95');
             document.getElementById('modal-content-box').classList.add('scale-100');
@@ -619,9 +636,9 @@
 
         function selectSize(btn) {
             document.querySelectorAll('.size-btn').forEach(b => {
-                b.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30";
+                b.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all duration-200 active:scale-95 bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30";
             });
-            btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-blue-600 text-white border-blue-500";
+            btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all duration-200 active:scale-95 bg-blue-600 text-white border-blue-500";
         }
 
         function toggleCart() {
@@ -795,4 +812,4 @@
     </script>
 </body>
 </html>
-     
+    
