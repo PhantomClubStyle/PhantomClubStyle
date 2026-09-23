@@ -480,10 +480,17 @@
         }
 
         function handleSearch(val) {
-            searchQuery = val.toLowerCase().trim();
-            document.getElementById('desktop-search-input').value = val;
-            document.getElementById('main-search-input').value = val;
-            renderProducts();
+    searchQuery = val.toLowerCase().trim();
+    // Sincronizamos ambos inputs para que coincidan visualmente
+    const desktopInput = document.getElementById('desktop-search-input');
+    const mainInput = document.getElementById('main-search-input');
+    if (desktopInput) desktopInput.value = val;
+    if (mainInput) mainInput.value = val;
+    
+    // Forzamos el renderizado inmediato del catálogo con el filtro de búsqueda
+    renderProducts();
+        }
+        
         }
 
         function renderProducts() {
