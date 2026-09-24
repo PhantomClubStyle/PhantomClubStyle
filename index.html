@@ -828,7 +828,9 @@
             message += `\n\nQuedo atento(a) para coordinar el pago y envío. ¡Gracias!`;
 
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            const phoneNumber = "584128705612"; // Reemplaza esto con tu número de WhatsApp real (ej: 58412...)
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
             window.open(whatsappUrl, '_blank');
         }
 
