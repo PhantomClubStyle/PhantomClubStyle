@@ -65,6 +65,14 @@
         .glow-blue {
             box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
         }
+        /* Animaciones fluidas adicionales */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
     </style>
 </head>
 <body class="bg-phantom-800 text-phantom-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
@@ -86,7 +94,7 @@
 
             <!-- Search & Cart controls -->
             <div class="flex items-center gap-4">
-                <!-- Tasa BCV Widget en Header -->
+                <!-- Tasa BCV Widget en Header (INTACTA) -->
                 <div class="hidden sm:flex items-center gap-2 bg-phantom-700/60 border border-white/5 px-3 py-1.5 rounded-xl text-xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span class="text-phantom-300">BCV:</span>
@@ -118,17 +126,17 @@
                 
                 <!-- Category Buttons -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full lg:w-auto" id="category-buttons">
-                    <button onclick="setCategory('todo')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30" data-category="todo">
+                    <button onclick="setCategory('todo')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:scale-[1.02]" data-category="todo">
                         <i data-lucide="layout-grid" class="w-4 h-4"></i>
                         <span>Todo</span>
                     </button>
-                    <button onclick="setCategory('gorras')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="gorras">
+                    <button onclick="setCategory('gorras')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5 hover:scale-[1.02]" data-category="gorras">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M2 12h20M12 4a8 8 0 0 0-8 8v2h16v-2a8 8 0 0 0-8-8zM17 14v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-4"/>
                         </svg>
                         <span>Gorras</span>
                     </button>
-                    <button onclick="setCategory('crocs')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="crocs">
+                    <button onclick="setCategory('crocs')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5 hover:scale-[1.02]" data-category="crocs">
                         <svg class="w-5 h-4" viewBox="0 0 240 130" fill="currentColor">
                             <path d="M 215 35 C 190 35 185 55 160 55 C 135 55 130 35 105 35 C 70 35 30 50 15 80 C 5 95 10 115 35 120 C 80 125 150 125 190 110 C 215 100 230 75 225 55 C 223 45 220 35 215 35 Z"/>
                             <circle cx="70" cy="65" r="12" fill="#0b0f19"/>
@@ -138,7 +146,7 @@
                         </svg>
                         <span>Crocs</span>
                     </button>
-                    <button onclick="setCategory('proximamente')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5" data-category="proximamente">
+                    <button onclick="setCategory('proximamente')" class="cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5 hover:scale-[1.02]" data-category="proximamente">
                         <i data-lucide="clock" class="w-4 h-4"></i>
                         <span>Próximamente</span>
                     </button>
@@ -165,7 +173,7 @@
                 <!-- Products injected via JS -->
             </div>
             
-            <div id="empty-state" class="hidden text-center py-20 bg-phantom-700/20 rounded-3xl border border-white/5">
+            <div id="empty-state" class="hidden text-center py-20 bg-phantom-700/20 rounded-3xl border border-white/5 animate-fade-in">
                 <div class="w-16 h-16 bg-phantom-700 rounded-full flex items-center justify-center mx-auto mb-4 text-phantom-400">
                     <i data-lucide="package-open" class="w-8 h-8"></i>
                 </div>
@@ -179,7 +187,7 @@
     <!-- Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300">
         <div id="cart-backdrop" onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"></div>
-        <div id="cart-panel" class="absolute inset-y-0 right-0 max-w-md w-full bg-phantom-800 border-l border-white/10 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 pointer-events-auto">
+        <div id="cart-panel" class="absolute inset-y-0 right-0 max-w-md w-full bg-phantom-800 border-l border-white/10 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out pointer-events-auto">
             
             <div class="p-6 border-b border-white/10 flex items-center justify-between bg-phantom-700/50">
                 <div class="flex items-center gap-3">
@@ -214,7 +222,7 @@
                         </div>
                     </div>
                 </div>
-                <button onclick="checkoutWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition-all shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 group">
+                <button onclick="checkoutWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide transition-all shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 group hover:scale-[1.02]">
                     <i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
                     <span>Completar Pedido por WhatsApp</span>
                 </button>
@@ -225,12 +233,15 @@
 
     <!-- Product Detail Modal -->
     <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto opacity-0 pointer-events-none transition-all duration-300">
-        <div onclick="closeModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
-        <div id="modal-content-box" class="relative bg-phantom-800 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 z-10 my-auto">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-40 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-colors flex items-center justify-center shadow-lg border border-white/20">
+        <div onclick="closeModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"></div>
+        <div id="modal-content-box" class="relative bg-phantom-800 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl transform scale-95 transition-all duration-300 z-10 my-auto flex flex-col">
+            
+            <!-- Botón de cierre "X" fijo arriba a la derecha -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-colors flex items-center justify-center shadow-lg border border-white/20">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-            <div id="modal-body-content">
+
+            <div id="modal-body-content" class="overflow-y-auto max-h-[90vh]">
                 <!-- Dynamically injected -->
             </div>
         </div>
@@ -265,8 +276,10 @@
     </footer>
 
     <script>
-        let BCV_RATE = 36.50; 
+        // Tasa BCV inicial (se actualizará automáticamente por API, con respaldo de emergencia) - INTACTA
+        let BCV_RATE = 852.42; 
 
+        // Función para consultar la tasa BCV actualizada desde API pública de Venezuela - INTACTA
         async function fetchBCVRate() {
             try {
                 const response = await fetch('https://ve.dolarapi.com/v1/dolares/bcv');
@@ -278,6 +291,7 @@
                 console.log('Usando tasa de respaldo local por error de red:', error);
             }
             
+            // Actualizar elementos visuales con la tasa vigente
             document.getElementById('header-bcv-rate').innerText = `Bs. ${BCV_RATE.toFixed(2)}`;
             renderProducts();
             updateCartUI();
@@ -407,6 +421,7 @@
                 specs: ["Cordura balística", "Cierres YKK impermeables", "Diseño ergonómico"]
             }
         ];
+
         let currentCategory = 'todo';
         let currentSubfilter = 'todas';
         let searchQuery = '';
@@ -415,7 +430,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             renderSubfilters();
-            fetchBCVRate();
+            fetchBCVRate(); // Consultar tasa BCV al iniciar
             updateCartUI();
 
             document.getElementById('desktop-search-input').addEventListener('input', (e) => {
@@ -436,9 +451,9 @@
             
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 if(btn.dataset.category === cat) {
-                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30";
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:scale-[1.02]";
                 } else {
-                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5";
+                    btn.className = "cat-btn px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-phantom-600/60 text-phantom-300 hover:text-white hover:bg-phantom-600 border border-white/5 hover:scale-[1.02]";
                 }
             });
 
@@ -464,13 +479,12 @@
             }
 
             container.innerHTML = filters.map(f => `
-                <button onclick="setSubfilter('${f.id}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${currentSubfilter === f.id ? 'bg-blue-600 text-white border-blue-500 shadow-md' : 'bg-phantom-700/60 text-phantom-300 hover:text-white border-white/5 hover:bg-phantom-700'}">
+                <button onclick="setSubfilter('${f.id}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 border ${currentSubfilter === f.id ? 'bg-blue-600 text-white border-blue-500 shadow-md scale-[1.02]' : 'bg-phantom-700/60 text-phantom-300 hover:text-white border-white/5 hover:bg-phantom-700'}">
                     ${f.label}
                 </button>
             `).join('');
             lucide.createIcons();
         }
-
         function setSubfilter(sub) {
             currentSubfilter = sub;
             renderSubfilters();
@@ -501,6 +515,7 @@
                         matchSub = p.subfilter === currentSubfilter;
                     }
                 }
+
                 let matchSearch = searchQuery === '' || 
                     p.name.toLowerCase().includes(searchQuery) || 
                     p.description.toLowerCase().includes(searchQuery);
@@ -520,7 +535,7 @@
                 const priceVES = (p.priceUSD * BCV_RATE).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 return `
-                    <div class="group bg-phantom-700/30 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                    <div class="group bg-phantom-700/35 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between shadow-xl hover:-translate-y-1 animate-fade-in">
                         <div class="relative w-full h-64 overflow-hidden bg-black cursor-pointer" onclick="openModal(${p.id})">
                             <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
                                 <source src="${p.videoUrl}" type="video/mp4">
@@ -547,10 +562,12 @@
 
                             <div class="pt-4 border-t border-white/5 flex items-end justify-between">
                                 <div>
+                                    <!-- PRECIO EN DÓLARES GRANDE -->
                                     <div class="text-2xl font-black text-blue-400 leading-none">$${p.priceUSD.toFixed(2)}</div>
+                                    <!-- EQUIVALENTE EN BOLÍVARES EN LETRA PEQUEÑA -->
                                     <div class="text-xs text-phantom-400 font-normal mt-1">Bs. ${priceVES}</div>
                                 </div>
-                                <button onclick="openModal(${p.id})" class="px-4 py-2.5 rounded-xl bg-phantom-600 hover:bg-blue-600 hover:text-white text-white text-xs font-bold transition-all flex items-center gap-1.5 border border-white/5">
+                                <button onclick="openModal(${p.id})" class="px-4 py-2.5 rounded-xl bg-phantom-600 hover:bg-blue-600 hover:text-white text-white text-xs font-bold transition-all duration-300 flex items-center gap-1.5 border border-white/5 hover:scale-105">
                                     <i data-lucide="eye" class="w-3.5 h-3.5"></i>
                                     <span>Ver Detalle</span>
                                 </button>
@@ -562,6 +579,8 @@
 
             lucide.createIcons();
         }
+
+
         function openModal(id) {
             const p = PRODUCTS.find(prod => prod.id === id);
             if (!p) return;
@@ -571,8 +590,9 @@
             const contentBox = document.getElementById('modal-body-content');
 
             contentBox.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 overflow-hidden rounded-3xl">
-                    <div class="relative h-72 md:h-full bg-black min-h-[300px] w-full">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Video contenido estrictamente dentro de la tarjeta flotante y cortado con overflow -->
+                    <div class="relative h-64 md:h-full bg-black min-h-[300px] w-full overflow-hidden">
                         <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
                             <source src="${p.videoUrl}" type="video/mp4">
                         </video>
@@ -583,6 +603,7 @@
                             </span>
                         </div>
                     </div>
+                    
                     <div class="p-6 md:p-8 flex flex-col justify-between">
                         <div>
                             <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 block mb-1">Phantom Club Collection</span>
@@ -600,7 +621,7 @@
                                 <label class="block text-xs font-bold uppercase tracking-wider text-phantom-400 mb-2">Selecciona Talla / Variante:</label>
                                 <div class="flex flex-wrap gap-2" id="modal-size-selector">
                                     ${p.sizes.map((s, idx) => `
-                                        <button onclick="selectSize(this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border ${idx === 0 ? 'bg-blue-600 text-white border-blue-500' : 'bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30'}">${s}</button>
+                                        <button onclick="selectSize(this)" class="size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all ${idx === 0 ? 'bg-blue-600 text-white border-blue-500 scale-105' : 'bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30'}">${s}</button>
                                     `).join('')}
                                 </div>
                             </div>
@@ -609,13 +630,15 @@
                         <div>
                             <div class="flex items-end justify-between mb-4 pt-4 border-t border-white/10">
                                 <div>
+                                    <!-- PRECIO EN DÓLARES GRANDE -->
                                     <div class="text-3xl font-black text-blue-400 leading-none">$${p.priceUSD.toFixed(2)}</div>
+                                    <!-- EQUIVALENTE EN BOLÍVARES EN LETRA PEQUEÑA -->
                                     <div class="text-xs text-phantom-400 font-normal mt-1">Bs. ${priceVES} (Tasa BCV)</div>
                                 </div>
                                 <span class="text-xs font-medium ${p.stock > 0 ? 'text-emerald-400' : 'text-rose-400'}">${p.stock > 0 ? `Stock: ${p.stock} disp.` : 'Agotado'}</span>
                             </div>
 
-                            <button onclick="addToCart(${p.id})" ${p.stock === 0 ? 'disabled' : ''} class="w-full py-3.5 rounded-xl ${p.stock > 0 ? 'bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 cursor-pointer' : 'bg-phantom-600 text-phantom-400 cursor-not-allowed'} transition-all flex items-center justify-center gap-2">
+                            <button onclick="addToCart(${p.id})" ${p.stock === 0 ? 'disabled' : ''} class="w-full py-3.5 rounded-xl ${p.stock > 0 ? 'bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 cursor-pointer hover:scale-[1.02]' : 'bg-phantom-600 text-phantom-400 cursor-not-allowed'} transition-all flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-bag" class="w-4 h-4"></i>
                                 <span>${p.stock > 0 ? 'Agregar al Carrito' : 'Agotado Temporalmente'}</span>
                             </button>
@@ -641,9 +664,9 @@
 
         function selectSize(btn) {
             document.querySelectorAll('.size-btn').forEach(b => {
-                b.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30";
+                b.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-phantom-700 text-phantom-300 border-white/10 hover:border-white/30 transition-all";
             });
-            btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-blue-600 text-white border-blue-500";
+            btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-blue-600 text-white border-blue-500 scale-105 transition-all";
         }
 
         function toggleCart() {
@@ -692,13 +715,13 @@
                     size: chosenSize,
                     quantity: 1
                 });
-            }
-
+                        }
             closeModal();
             updateCartUI();
             showToast(`${p.name} agregado al carrito`);
             toggleCart();
-                }
+        }
+
         function updateQuantity(index, delta) {
             cart[index].quantity += delta;
             if (cart[index].quantity <= 0) {
@@ -753,18 +776,19 @@
                 totalUSD += itemTotalUSD;
 
                 return `
-                    <div class="flex items-center gap-4 bg-phantom-700/40 p-3.5 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-4 bg-phantom-700/40 p-3.5 rounded-2xl border border-white/5 animate-fade-in">
                         <img src="${item.imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl bg-black">
                         <div class="flex-1 min-w-0">
                             <h4 class="text-sm font-bold text-white truncate">${item.name}</h4>
                             <p class="text-xs text-blue-400 font-medium">Talla: ${item.size}</p>
+                            <!-- PRECIO EN CARRITO: DÓLARES GRANDE Y BS PEQUEÑO -->
                             <div class="mt-1">
-                                <div class="text-base font-black text-white">$${itemTotalUSD.toFixed(2)} <span class="text-[10px] text-phantom-400 font-normal">($${item.priceUSD.toFixed(2)} c/u)</span></div>
-                                <div class="text-xs text-phantom-400 font-medium">Bs. ${itemTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                <div class="text-sm font-black text-white">$${itemTotalUSD.toFixed(2)} <span class="text-[10px] text-phantom-400 font-normal">($${item.priceUSD.toFixed(2)} c/u)</span></div>
+                                <div class="text-[11px] text-phantom-400">Bs. ${itemTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-2">
-                            <button onclick="updateQuantity(${idx}, -1)" class="text-phantom-400 hover:text-rose-400 transition-colors p-1">
+                            <button onclick="updateQuantity(${idx}, -${item.quantity})" class="text-phantom-400 hover:text-rose-400 transition-colors p-1">
                                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                             </button>
                             <div class="flex items-center gap-2 bg-phantom-800 px-2 py-1 rounded-lg border border-white/5 text-xs">
