@@ -227,7 +227,6 @@
     <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto opacity-0 pointer-events-none transition-all duration-300">
         <div onclick="closeModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
         <div id="modal-content-box" class="relative bg-phantom-800 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 z-10 my-auto">
-            <!-- Botón de cierre absoluto para que flote perfectamente sin dejar espacios -->
             <button onclick="closeModal()" class="absolute top-4 right-4 z-40 p-2.5 rounded-full bg-black/80 text-white hover:bg-black transition-colors flex items-center justify-center shadow-lg border border-white/20">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -502,7 +501,6 @@
                         matchSub = p.subfilter === currentSubfilter;
                     }
                 }
-
                 let matchSearch = searchQuery === '' || 
                     p.name.toLowerCase().includes(searchQuery) || 
                     p.description.toLowerCase().includes(searchQuery);
@@ -515,6 +513,7 @@
                 emptyState.classList.remove('hidden');
                 return;
             }
+
             emptyState.classList.add('hidden');
 
             grid.innerHTML = filtered.map(p => {
@@ -563,7 +562,6 @@
 
             lucide.createIcons();
         }
-
         function openModal(id) {
             const p = PRODUCTS.find(prod => prod.id === id);
             if (!p) return;
@@ -625,6 +623,7 @@
                     </div>
                 </div>
             `;
+
             modalBox.classList.remove('opacity-0', 'pointer-events-none');
             document.getElementById('modal-content-box').classList.remove('scale-95');
             document.getElementById('modal-content-box').classList.add('scale-100');
@@ -699,8 +698,7 @@
             updateCartUI();
             showToast(`${p.name} agregado al carrito`);
             toggleCart();
-        }
-
+                }
         function updateQuantity(index, delta) {
             cart[index].quantity += delta;
             if (cart[index].quantity <= 0) {
@@ -761,8 +759,8 @@
                             <h4 class="text-sm font-bold text-white truncate">${item.name}</h4>
                             <p class="text-xs text-blue-400 font-medium">Talla: ${item.size}</p>
                             <div class="mt-1">
-                                <div class="text-sm font-black text-white">$${itemTotalUSD.toFixed(2)} <span class="text-[10px] text-phantom-400 font-normal">($${item.priceUSD.toFixed(2)} c/u)</span></div>
-                                <div class="text-[11px] text-phantom-400">Bs. ${itemTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                <div class="text-base font-black text-white">$${itemTotalUSD.toFixed(2)} <span class="text-[10px] text-phantom-400 font-normal">($${item.priceUSD.toFixed(2)} c/u)</span></div>
+                                <div class="text-xs text-phantom-400 font-medium">Bs. ${itemTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-2">
