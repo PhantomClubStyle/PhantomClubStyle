@@ -332,8 +332,7 @@
                 specs: ["Resistente al agua", "Soporte ergonómico acolchado", "Incluye set de 4 Jibbitz metálicos"]
             },
             {
-                                                        <div class="flex-1 min-w-0">
-                 id: 4,
+                id: 4,
                 name: "Crocs LiteRide Midnight Blue",
                 category: "crocs",
                 subfilter: "ofertas",
@@ -409,7 +408,6 @@
                 specs: ["Cordura balística", "Cierres YKK impermeables", "Diseño ergonómico"]
             }
         ];
-
         let currentCategory = 'todo';
         let currentSubfilter = 'todas';
         let searchQuery = '';
@@ -516,14 +514,14 @@
                 grid.innerHTML = '';
                 emptyState.classList.remove('hidden');
                 return;
-        }
+            }
             emptyState.classList.add('hidden');
 
             grid.innerHTML = filtered.map(p => {
                 const priceVES = (p.priceUSD * BCV_RATE).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 return `
-                <div class="group bg-phantom-700/30 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between shadow-xl">
+                    <div class="group bg-phantom-700/30 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between shadow-xl">
                         <div class="relative w-full h-64 overflow-hidden bg-black cursor-pointer" onclick="openModal(${p.id})">
                             <video autoplay muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
                                 <source src="${p.videoUrl}" type="video/mp4">
@@ -627,7 +625,6 @@
                     </div>
                 </div>
             `;
-
             modalBox.classList.remove('opacity-0', 'pointer-events-none');
             document.getElementById('modal-content-box').classList.remove('scale-95');
             document.getElementById('modal-content-box').classList.add('scale-100');
@@ -649,6 +646,7 @@
             });
             btn.className = "size-btn px-3.5 py-2 rounded-xl text-xs font-semibold border bg-blue-600 text-white border-blue-500";
         }
+
         function toggleCart() {
             const drawer = document.getElementById('cart-drawer');
             const backdrop = document.getElementById('cart-backdrop');
